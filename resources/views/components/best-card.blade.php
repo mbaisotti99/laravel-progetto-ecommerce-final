@@ -1,7 +1,12 @@
 @props(["prod"])
 
 <div class="card text-center">
-  <img src="{{ Vite::asset("prods/$prod->img") }}" class="card-img-top" alt="...">
+  @if (isset($prod->hot))
+    <div class="hot">
+      <p>HOT</p>
+    </div>
+  @endif
+  <img src="{{asset("prods/$prod->img")}}" class="card-img-top" alt="...">
   <div class="card-body">
     <h5 class="card-title">{{$prod->nome}}</h5>
     <p class="card-title">{{$prod->categoria}}</p>

@@ -9,6 +9,12 @@ class ProductController extends Controller
 {
     public function index (){
         $prods = Product::paginate(10);
+        foreach($prods as $prod){
+            if ($prod->reviews->avg("voto") > 4){
+                $prod->hot = true;
+            }
+
+        }
         return view("products.index", compact("prods"));
     }
 
