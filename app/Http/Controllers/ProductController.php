@@ -22,4 +22,9 @@ class ProductController extends Controller
         $prods = Product::where("categoria", $cat)->get();
         return view("products.filtered", compact("prods", "cat")    );
     }
+
+    public function details(Product $prod){
+        return view("products.details", compact("prod"));
+    }
+
 }

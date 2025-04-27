@@ -6,7 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [MainControler::class, "home"]);
+Route::get('/', [MainControler::class, "home"])->name("home");
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -17,6 +17,7 @@ Route::name("products.")
 ->group(function() {
     Route::get("/", [ProductController::class, "index"])->name("index");
     Route::get("/filtered/{cat}", [ProductController::class, "filtered"])->name("filtered");
+    Route::get("/products/{prod}", [ProductController::class, "details"])->name("details");
 });
 
 Route::middleware(["auth", "verified"])
@@ -26,6 +27,7 @@ Route::middleware(["auth", "verified"])
     Route::get("/details", [UserController::class, "details"])->name("details");
     Route::get("/orders", [UserController::class, "orders"])->name("orders");
     Route::get("/cart", [UserController::class, "cart"])->name("cart");
+    Route::get("/cart/add/{prod}", [UserController::class, "addToCart"])->name("addToCart");
 });
 
 Route::middleware('auth')->group(function () {
