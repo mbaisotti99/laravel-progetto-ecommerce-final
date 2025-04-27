@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum("categoria", ["tshirt", "felpa", "pantalone", "giacca", "maglione"]);
             $table->json("taglie");
             $table->string("img");
+            $table->bigInteger("prezzo");
             $table->timestamps();
         });
     }

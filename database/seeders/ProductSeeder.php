@@ -34,6 +34,7 @@ class ProductSeeder extends Seeder
             $scelte = collect($taglie)->shuffle()->take(rand(2, count($taglie)))->values()->all();
             $newProd->taglie = $scelte;
             $newProd->img = "prod_$i.jpg";
+            $newProd->prezzo = rand(35, 120);
             
             $newProd->save();
 

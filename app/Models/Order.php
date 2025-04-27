@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     public function products(){
-        return $this->belongsToMany(Product::class)->withPivot("quantita");
+        return $this->belongsToMany(Product::class)->withPivot("quantita", "taglia");
     }
 
     public function user(){

@@ -116,3 +116,22 @@ footer{
     border-radius: 5px;
     align-items: center;
 }
+
+.detImg{
+    max-width: 400px;
+}
+
+.detCard{
+    width: 400px;
+    margin: 100px 0;
+}
+
+
+// Reviews
+
+.revBox{
+    border: 1px solid lightgray;
+    background-color: rgba(199, 199, 199, 0.589);
+    overflow: scroll;
+    margin-top: 100px;
+}

@@ -24,6 +24,11 @@
   @endphp
       {{ round($avg, 2) }} <i class="bi bi-star-fill" style="color: gold; font-size: 22px;"></i>
     </p>
+    <p class="card-title fs-2">
+            <b>
+                {{ $prod->prezzo }}€
+            </b>
+        </p>
     {{ $add }}
   </div>
 </div>

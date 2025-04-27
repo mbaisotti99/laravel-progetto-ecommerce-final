@@ -17,7 +17,7 @@ class ReviewSeeder extends Seeder
         $prods = Product::all();
 
         foreach ($prods as $prod){
-            for ($i = 0; $i < rand(1, 5); $i++){
+            for ($i = 0; $i < rand(3, 10); $i++){
                 $newRev = new Review();
                 $newRev->utente = $faker->name();
                 $newRev->voto = rand(1, 5);
