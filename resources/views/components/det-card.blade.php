@@ -7,8 +7,8 @@
         </div>
     @endif
     <img src="{{asset("prods/$prod->img")}}" alt="..." class="detImg">
-    <form action="{{ route("user.addToCart", $prod) }}" method="GET">
-
+    <form action="{{ route("user.addToCart", $prod) }}" method="POST">
+        @csrf
         <div class="card-body">
             <h5 class="card-title">{{$prod->nome}}</h5>
             <p class="card-title">{{$prod->categoria}}</p>

@@ -2,7 +2,6 @@
 @section("contenuto")
 
     @php
-        $order = $user->order;
         if ($order) {
             $grandTotal = 0;
             foreach ($order->products as $prod) {
@@ -18,7 +17,7 @@
 
     <div class="container d-flex justify-content-center align-items-center h-100">
         @if ($order)
-            <div class="row w-100">
+            <div class="row w-100 mt-5">
 
                 @foreach ($order->products as $prod)
                     <div class="col-12">

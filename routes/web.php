@@ -27,7 +27,9 @@ Route::middleware(["auth", "verified"])
     Route::get("/details", [UserController::class, "details"])->name("details");
     Route::get("/orders", [UserController::class, "orders"])->name("orders");
     Route::get("/cart", [UserController::class, "cart"])->name("cart");
-    Route::get("/cart/add/{prod}", [UserController::class, "addToCart"])->name("addToCart");
+    Route::post("/cart/add/{prod}", [UserController::class, "addToCart"])->name("addToCart");
+    Route::put("/cart/update/{prod}", [UserController::class, "updateCart"])->name("updateCart");
+    Route::delete("/cart/remove/{prod}/{taglia}", [UserController::class, "removeFromCart"])->name("removeFromCart");
 });
 
 Route::middleware('auth')->group(function () {

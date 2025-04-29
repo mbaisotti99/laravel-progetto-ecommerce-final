@@ -12,21 +12,22 @@ class UserController extends Controller
 {
     public function details()
     {
-        $user = Auth::user();
-        return view("user.details", compact("user"));
+        return view("user.details");
     }
 
     public function orders()
     {
-        $user = Auth::user();
 
-        return view("user.orders", compact("user"));
+        return view("user.orders");
     }
     public function cart()
     {
-        $user = Auth::user();
-
-        return view("user.cart", compact("user"));
+        $order = Auth::user()->order()->with([
+            'products' => function ($q) {
+                $q->withPivot('taglia', 'quantita');
+            }
+        ])->first();
+        return view("user.cart", compact("order"));
     }
 
     public function addToCart(Product $prod, Request $req)
@@ -52,15 +53,97 @@ class UserController extends Controller
                     ->update([
                         'quantita' => $existingProd->pivot->quantita + 1
                     ]);
-                
-            }else{
+
+            } else {
 
                 $user->order->products()->attach($prod, ["taglia" => $size]);
-                
+
             }
         }
 
-        return redirect(route("user.cart", compact("user")));
+        return redirect(route("user.cart"));
+    }
+
+    public function updateCart(Request $req, Product $prod)
+    {
+        $newSize = $req->taglia;
+        $newQuantita = $req->qty;
+        $oldSize = $req->old_taglia;
+        $oldQuantita = $req->old_quantita;
+        $user = Auth::user();
+        $curOrder = $user->order;
+
+        if ($newSize !== $oldSize) {
+            $sameSizeProd = $curOrder->products->filter(function ($item) use ($prod, $newSize) {
+                return $item->id == $prod->id && $item->pivot->taglia == $newSize;
+            })->first();
+            if ($sameSizeProd) {
+
+                $sumQty = $newQuantita + $sameSizeProd->pivot->quantita;
+
+                DB::table("order_product")
+                    ->where("order_id", $curOrder->id)
+                    ->where('product_id', $prod->id)
+                    ->delete();
+
+                $curOrder->products()->attach($prod->id, [
+                    "taglia" => $newSize,
+                    "quantita" => $sumQty
+                ]);
+            } else {
+                DB::table('order_product')
+                    ->where('order_id', $curOrder->id)
+                    ->where('product_id', $prod->id)
+                    ->where('taglia', $oldSize)
+                    ->update([
+                        'taglia' => $newSize
+                    ]);
+            }
+        }
+
+        if ($newQuantita !== $oldQuantita) {
+            if ($newQuantita > 0) {
+                DB::table('order_product')
+                    ->where('order_id', $curOrder->id)
+                    ->where('product_id', $prod->id)
+                    ->where('taglia', $oldSize)
+                    ->update([
+                        'quantita' => $newQuantita
+                    ]);
+            } else {
+                DB::table('order_product')
+                    ->where('order_id', $curOrder->id)
+                    ->where('product_id', $prod->id)
+                    ->where('taglia', $oldSize)
+                    ->delete();
+            }
+        }
+
+        $order = Auth::user()->order()->with([
+            'products' => function ($q) {
+                $q->withPivot('taglia', 'quantita');
+            }
+        ])->first();
+
+        return redirect(route("user.cart", compact("order")));
+    }
+
+    public function removeFromCart(Product $prod, $taglia)
+    {
+        $curOrder = Auth::user()->order;
+        DB::table('order_product')
+            ->where('order_id', $curOrder->id)
+            ->where('product_id', $prod->id)
+            ->where('taglia', $taglia)
+            ->delete();
+
+        $order = Auth::user()->order()->with([
+            'products' => function ($q) {
+                $q->withPivot('taglia', 'quantita');
+            }
+        ])->first();
+
+        return redirect(route("user.cart", compact("order")));
     }
 }
 

@@ -1,6 +1,10 @@
 @extends("layouts.master")
 @section("contenuto")
+@php
 
+$user = Auth::user();
+
+@endphp
     <div class="container cent">
 
         <div class="card text-center fs-2   ">
