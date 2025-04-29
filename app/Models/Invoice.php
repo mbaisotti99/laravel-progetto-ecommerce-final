@@ -13,4 +13,8 @@ class Invoice extends Model
     public function order(){
         return $this->hasOne(Order::class);
     }
+
+    public function address(){
+        return $this->hasOne(Address::class);
+    }
 }

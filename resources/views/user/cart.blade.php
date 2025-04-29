@@ -33,6 +33,9 @@
                         </b>
                     </p>
                 </div>
+                <div class="col-12 d-flex justify-content-center">
+                    <a href="{{ route("order.checkout") }}" class="btn btn-success">Procedi al Checkout</a>
+                </div>
             </div>
         @else
             <div class="alert alert-dark">

@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\MainControler;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -20,6 +22,13 @@ Route::name("products.")
     Route::get("/products/{prod}", [ProductController::class, "details"])->name("details");
 });
 
+Route::name("order.")
+->prefix("order")
+->group(function(){
+    Route::get("/checkout", [OrderController::class, "checkout"])
+    ->name("checkout");
+});
+
 Route::middleware(["auth", "verified"])
 ->name("user.")
 ->prefix("user")
@@ -37,5 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::resource("address", AddressController::class);
 
 require __DIR__.'/auth.php';
