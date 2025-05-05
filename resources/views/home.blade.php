@@ -7,6 +7,16 @@
                 Tutti i prodotti
             </a>
         </div>
+        @if (Auth::user()->role == "admin")
+
+        <h1 class="text-center mt-5">
+            Pannello Admin
+        </h1>
+        <div class="adminPanel">
+            <a href="{{ route("prods-admin.index") }}" class="btn btn-primary fs-3">Prodotti</a>
+        </div>
+
+        @endif
         <h1 class="text-center my-5">I Nostri prodotti migliori</h1>
         <div class="row">
             @foreach ($bestProds as $prod)

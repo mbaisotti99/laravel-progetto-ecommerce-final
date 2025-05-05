@@ -34,9 +34,15 @@
     <div class="tools">
         <ul class="toolsLinks cleanList">
             <li>
+                @if (Auth::check())
                 <a href="{{route("user.details")}}">
                     <i class="bi bi-person-circle"></i>
                 </a>
+                @else
+                <a href="{{ route("login") }}" class="btn btn-primary fs-3">
+                    Accedi
+                </a>
+                @endif
             </li>
             <li>
                 <a href="{{route("user.orders")}}">

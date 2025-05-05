@@ -1,3 +1,6 @@
+@php
+use Carbon\Carbon;
+@endphp
 @extends("layouts.master")
 @section("contenuto")
     <div class="container">
@@ -8,7 +11,7 @@
             @foreach (Auth::user()->invoices as $order)
                 <table class="table table-striped my-5">
                     <tr>
-                        <th></th>
+                        <th class="d-flex align-items-center gap-2"><div class="dot {{$order->status}}"></div>{{ ucfirst($order->status) . " " . Carbon::parse($order->updated_at)->format("d-m-Y") }}</th>
                         <th>Prodotto</th>
                         <th>Quantità</th>
                         <th>Taglia</th>

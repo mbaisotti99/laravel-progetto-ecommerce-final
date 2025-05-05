@@ -21,7 +21,7 @@ class AddressController extends Controller
      */
     public function create()
     {
-        //
+        return view("address.create");
     }
 
     /**
@@ -62,24 +62,38 @@ class AddressController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Address $address)
     {
-        //
+        return view("address.edit", compact("address"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Address $address)
     {
-        //
+        $data = $request->all();
+
+        $address->nome = $data["nome"];
+        $address->cognome = $data["cognome"];
+        $address->indirizzo = $data["indirizzo"];
+        $address->civico = $data["civico"];
+        $address->localita = $data["localita"];
+        $address->provincia = $data["provincia"];
+        $address->cap = $data["cap"];
+
+        $address->update();
+
+        return redirect(route("user.details"));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Address $address)
     {
-        //
+        $address->delete();
+
+        return redirect(route("user.details"));
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\AdminProdController;
 use App\Http\Controllers\MainControler;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -29,7 +30,7 @@ Route::name("order.")
     ->name("checkout");
     Route::post("/checkout/invoice", [OrderController::class, "storeInvoice"])
     ->name("storeInvoice");
-    Route::get("/checkout/finalize", [OrderController::class, "finalize"])
+    Route::post("/checkout/finalize/{invoice}", [OrderController::class, "finalize"])
     ->name("finalize");
 });
 
@@ -52,5 +53,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource("address", AddressController::class);
+
+Route::resource("prods-admin", AdminProdController::class);
 
 require __DIR__.'/auth.php';

@@ -50,9 +50,13 @@ class OrderController extends Controller
         return view("order.finalize", ["invoice" => $newInv, "order" => $order]);
     }
 
-    public function finalize(Invoice $invoice)
+    public function finalize($invoice)
     {
-        $invoice->status = "confermato";
+        Invoice::find($invoice)->update([
+            'status' => 'confermato'
+        ]);
+
+
 
         Auth::user()->order->delete();
 

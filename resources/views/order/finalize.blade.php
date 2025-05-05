@@ -67,6 +67,9 @@
         {{ $invoice->address->indirizzo . " " . $invoice->address->civico }} <br>
         {{ $invoice->address->localita . " (" . $invoice->address->provincia . ") " . $invoice->address->cap }}
     </div>
-    <a href="{{ route("order.finalize") }}" class="btn btn-success mt-5">Conferma ordine</a>
+    <form action="{{route("order.finalize", $invoice->id)}}" method="POST">
+        @csrf
+        <button class="btn btn-success mt-5" type="submit">Conferma ordine<button/>
+    </form>
 </div>
 @endsection
