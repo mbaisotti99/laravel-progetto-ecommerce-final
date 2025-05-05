@@ -27,6 +27,10 @@ Route::name("order.")
 ->group(function(){
     Route::get("/checkout", [OrderController::class, "checkout"])
     ->name("checkout");
+    Route::post("/checkout/invoice", [OrderController::class, "storeInvoice"])
+    ->name("storeInvoice");
+    Route::get("/checkout/finalize", [OrderController::class, "finalize"])
+    ->name("finalize");
 });
 
 Route::middleware(["auth", "verified"])

@@ -18,4 +18,8 @@ class Product extends Model
     public function order(){
         return $this->belongsTo(Order::class);
     }
+
+    public function invoices(){
+        return $this->belongsToMany(Invoice::class);
+    }
 }

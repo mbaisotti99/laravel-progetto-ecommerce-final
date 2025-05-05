@@ -13,6 +13,7 @@
                 }
             }
         }
+
     @endphp
 
     <div class="container d-flex justify-content-center align-items-center h-100">
@@ -33,7 +34,8 @@
                         </b>
                     </p>
                 </div>
-                <div class="col-12 d-flex justify-content-center">
+                <div class="col-12 d-flex justify-content-around">
+                    <a href="{{ route("home") }}" class="btn btn-primary">Continua lo shopping</a>
                     <a href="{{ route("order.checkout") }}" class="btn btn-success">Procedi al Checkout</a>
                 </div>
             </div>

@@ -2,16 +2,60 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
+use App\Models\Invoice;
 use App\Models\Order;
+use App\Models\Ship;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Faker\Generator;
+use Illuminate\Container\Container;
 
 class OrderController extends Controller
 {
-    public function checkout(){
+    public function checkout()
+    {
         $order = Auth::user()->order;
         $addresses = Auth::user()->addresses;
+        $speds = Ship::all();
 
-        return view("order.checkout", compact("order", "addresses"));
+        return view("order.checkout", compact("order", "addresses", "speds"));
+    }
+
+    public function storeInvoice(Request $request)
+    {
+        $newInv = new Invoice();
+        $faker = Container::getInstance()->make(Generator::class);
+        $address = $request->address;
+        $total = $request->total;
+        $spedizione = Ship::find($request->spedizione);
+        $order = Auth::user()->order;
+
+        $newInv->codice = $faker->randomNumber(8, true);
+        $newInv->address_id = $address;
+        $newInv->user_id = Auth::user()->id;
+        $newInv->order_id = Auth::user()->order->id;
+        $newInv->costo = $total + $spedizione->costo;
+        $newInv->status = "bozza";
+        $newInv->ship_id = $spedizione->id;
+        
+        $newInv->save();
+        foreach (Auth::user()->order->products as $prod) {
+            $newInv->products()->attach($prod, [
+                "taglia" => $prod->pivot->taglia,
+                "quantita" => $prod->pivot->quantita,
+            ]);
+        }
+
+        return view("order.finalize", ["invoice" => $newInv, "order" => $order]);
+    }
+
+    public function finalize(Invoice $invoice)
+    {
+        $invoice->status = "confermato";
+
+        Auth::user()->order->delete();
+
+        return redirect(route("user.orders"));
     }
 }

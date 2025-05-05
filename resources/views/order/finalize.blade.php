@@ -1,0 +1,72 @@
+@extends("layouts.master")
+@section("titolo", "Finalizza ordine")
+
+@section("contenuto")
+@php
+            $grandTotal = 0;
+            foreach ($invoice->products as $prod) {
+                if ($prod->pivot->quantita = 1) {
+                    $grandTotal += $prod->prezzo;
+                } else {
+                    $totaleProd = $prod->prezzo * $prod->pivot->quantita;
+                    $grandTotal += $totaleProd;
+                }
+            }
+@endphp
+<div class="container cent">
+    <h1 class="text-center my-5">Controlla il tuo ordine</h1>
+    <table class="table table-striped">
+        <tr>
+            <th>
+                Prodotto
+            </th>
+            <th>
+                Taglia
+            </th>
+            <th>
+                Quantità
+            </th>
+            <th>
+                Prezzo
+            </th>
+        </tr>
+        @foreach ($invoice->products as $prod )
+            <tr>
+                <td>
+                    {{$prod->nome}}
+                </td>
+                <td>
+                    {{$prod->pivot->taglia}}
+                </td>
+                <td>
+                    {{$prod->pivot->quantita}}
+                </td>
+                <td>
+                    {{$prod->prezzo}}€
+                </td>
+            </tr>
+        @endforeach
+        <tr>
+            <td>{{$invoice->ship->nome}}</td>
+            <td></td>
+            <td>1</td>
+            <td>{{$invoice->ship->costo}}€</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td><b>Totale</b></td>
+            <td><b> {{ $grandTotal + $invoice->ship->costo }}€</b></td>
+        </tr>
+    </table>
+    <h2 class="my-3">
+        Indirizzo di spedizione
+    </h2>
+    <div class="card p-4 my3">
+        {{ $invoice->address->nome . " " . $invoice->address->cognome }} <br>
+        {{ $invoice->address->indirizzo . " " . $invoice->address->civico }} <br>
+        {{ $invoice->address->localita . " (" . $invoice->address->provincia . ") " . $invoice->address->cap }}
+    </div>
+    <a href="{{ route("order.finalize") }}" class="btn btn-success mt-5">Conferma ordine</a>
+</div>
+@endsection

@@ -11,10 +11,18 @@ class Invoice extends Model
     }
 
     public function order(){
-        return $this->hasOne(Order::class);
+        return $this->belongsTo(Order::class);
     }
 
     public function address(){
-        return $this->hasOne(Address::class);
+        return $this->belongsTo(Address::class);
+    }
+
+    public function products(){
+        return $this->belongsToMany(Product::class)->withPivot( "taglia", "quantita");
+    }
+
+    public function ship(){
+        return $this->belongsTo(Ship::class);
     }
 }
