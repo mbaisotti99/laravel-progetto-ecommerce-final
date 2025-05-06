@@ -24,7 +24,7 @@
                     <td>{{ $prod->descrizione }}</td>
                     <td>{{ $prod->categoria }}</td>
                     <td>{{ $prod->prezzo }}€</td>
-                    <td><a href="{{ route("prods-admin.edit", $prod) }}" class="btn btn-warning fs-3">Modifica</a></td>
+                    <td><a href="{{ route("prods-admin.edit", $prod->id) }}" class="btn btn-warning fs-3">Modifica</a></td>
                     <td>
                         <button type="button" class="btn btn-danger fs-3" data-bs-toggle="modal" data-bs-target="#deleteProdModal">
                             Elimina

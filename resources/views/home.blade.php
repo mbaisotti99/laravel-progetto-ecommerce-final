@@ -7,7 +7,7 @@
                 Tutti i prodotti
             </a>
         </div>
-        @if (Auth::user()->role == "admin")
+        @if (Auth::check() && Auth::user()->role == "admin")
 
         <h1 class="text-center mt-5">
             Pannello Admin

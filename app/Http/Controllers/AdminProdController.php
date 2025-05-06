@@ -47,9 +47,10 @@ class AdminProdController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $prod)
+    public function edit($id)
     {
         $cats = Categorie::cases();
+        $prod = Product::find($id);
         return view("products.edit", compact("prod", "cats"));
     }
 
