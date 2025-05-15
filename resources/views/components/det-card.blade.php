@@ -6,7 +6,7 @@
             <p>HOT</p>
         </div>
     @endif
-    <img src="{{asset("prods/$prod->img")}}" alt="..." class="detImg">
+    <img src="{{asset("storage/prods/$prod->img")}}" alt="..." class="detImg">
     <form action="{{ route("user.addToCart", $prod) }}" method="POST">
         @csrf
         <div class="card-body">

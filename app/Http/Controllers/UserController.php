@@ -17,8 +17,8 @@ class UserController extends Controller
 
     public function orders()
     {
-
-        return view("user.orders");
+        $invoices = Auth::user()->invoices()->orderByDesc("created_at")->paginate(5);
+        return view("user.orders", compact("invoices"));
     }
     public function cart()
     {

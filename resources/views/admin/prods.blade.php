@@ -18,7 +18,7 @@
             </tr>
             @foreach ($prods as $prod)
                 <tr>
-                    <td><img src="{{asset("prods/$prod->img")}}" alt="..."></td>
+                    <td><img src="{{asset("storage/prods/$prod->img")}}" alt="..." width="300"></td>
                     <td>{{ $prod->nome }}</td>
                     <td>{{ implode(" - ", $prod->taglie) }}</td>
                     <td>{{ $prod->descrizione }}</td>
@@ -45,7 +45,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
-                                <form action="{{route("prods-admin.destroy", $prod)}}" method="POST">
+                                <form action="{{route("prods-admin.destroy", $prod->id)}}" method="POST">
                                     @csrf
                                     @method("DELETE")
                                     <button type="submit" class="btn btn-danger">Elimina</button>

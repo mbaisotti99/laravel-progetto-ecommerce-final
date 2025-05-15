@@ -3,15 +3,8 @@
 @section("contenuto")
     <div class="container">
         @php
-        $grandTotal = 0;
-            foreach ($order->products as $prod) {
-                if ($prod->pivot->quantita = 1) {
-                    $grandTotal += $prod->prezzo;
-                } else {
-                    $totaleProd = $prod->prezzo * $prod->pivot->quantita;
-                    $grandTotal += $totaleProd;
-                }
-            }
+        session_start();
+        $grandTotal = $_SESSION["total"];
         @endphp
 
         @if (count($addresses) > 0)

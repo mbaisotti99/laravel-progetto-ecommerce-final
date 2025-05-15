@@ -30,6 +30,12 @@
                     <td>{{ $user->role }}</td>
                 </tr>
             </table>
+            <a href="{{ route("logout") }}"
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                class="btn btn-warning">Esci</a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
         </div>
 
         <div class="card my-5 text-center p-5">

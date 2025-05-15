@@ -2,10 +2,11 @@
 @section("contenuto")
 
     @php
+        session_start();
         if ($order) {
             $grandTotal = 0;
             foreach ($order->products as $prod) {
-                if ($prod->pivot->quantita = 1) {
+                if ($prod->pivot->quantita == 1) {
                     $grandTotal += $prod->prezzo;
                 } else {
                     $totaleProd = $prod->prezzo * $prod->pivot->quantita;
@@ -13,6 +14,9 @@
                 }
             }
         }
+
+        $_SESSION["total"] = $grandTotal;
+        
 
     @endphp
 

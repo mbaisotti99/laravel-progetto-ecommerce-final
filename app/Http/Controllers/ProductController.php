@@ -13,8 +13,8 @@ class ProductController extends Controller
             if ($prod->reviews->avg("voto") > 4){
                 $prod->hot = true;
             }
-
         }
+        
         return view("products.index", compact("prods"));
     }
 

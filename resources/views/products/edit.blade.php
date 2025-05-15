@@ -6,8 +6,9 @@
 $taglie = ["XS", "S", "M", "L", "XL", "XXL"];
 @endphp
     <div class="container">
-        <form action="{{route("prods-admin.store")}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route("prods-admin.update", $prod->id)}}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method("PUT")
             <div class="row my-5">
                 <div class="col-6 py-3">
                     <label for="nome" class="form-label">Nome:</label>
@@ -39,7 +40,7 @@ $taglie = ["XS", "S", "M", "L", "XL", "XXL"];
                     <div class="row">
                         @foreach ($taglie as $taglia )
                             <div class="col-4 me-5 mb-3">
-                                <input type="checkbox"  name="taglie[]" value="{{$taglia}}" id="{{ $taglia }}box" {{ $prod->taglie->contains($taglia) ? "checked" : "" }}>
+                                <input type="checkbox"  name="taglie[]" value="{{$taglia}}" id="{{ $taglia }}box" {{ collect($prod->taglie)->contains($taglia) ? "checked" : "" }}>
                                 <label for="{{$taglia}}box">{{$taglia}}</label>
                             </div>
                         @endforeach

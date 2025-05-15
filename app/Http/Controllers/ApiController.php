@@ -5,12 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
-class MainControler extends Controller
+class ApiController extends Controller
 {
-    public function home()
-    {
+    public function index() {
         $prods = Product::all();
 
+        return response()->json([
+            "success" => true,
+            "data" => $prods
+        ]);
+    }
+
+    public function best(){
         $bestProds = Product::with('reviews') 
             ->get() 
             ->map(function ($product) {
@@ -25,7 +31,18 @@ class MainControler extends Controller
             ->sortByDesc('average_rating') 
             ->take(9);
 
+        return response()->json([
+            "success" => true,
+            "data" => $bestProds
+        ]);
+    }
 
-        return view("home", compact("bestProds"));
+    public function filterCat(string $cat){
+        $prods = Product::where("categoria", $cat)->get();
+
+        return response()->json([
+            "success" => true,
+            "data" => $prods
+        ]);
     }
 }

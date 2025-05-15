@@ -8,7 +8,7 @@ use Carbon\Carbon;
             I miei Ordini
         </h1>
         <div class="orders">
-            @foreach (Auth::user()->invoices as $order)
+            @foreach ($invoices as $order)
                 <table class="table table-striped my-5">
                     <tr>
                         <th class="d-flex align-items-center gap-2"><div class="dot {{$order->status}}"></div>{{ ucfirst($order->status) . " " . Carbon::parse($order->updated_at)->format("d-m-Y") }}</th>
@@ -20,7 +20,7 @@ use Carbon\Carbon;
                     @foreach ($order->products as $prod)
                         <tr>
                             <td>
-                                <img src="{{asset("prods/$prod->img")}}" alt="...">
+                                <img src="{{asset("storage/prods/$prod->img")}}" alt="...">
                             </td>
                             <td>
                                 {{$prod->nome}}
@@ -54,6 +54,7 @@ use Carbon\Carbon;
                 <hr>
             @endforeach
         </div>
+        {{ $invoices->links('pagination::bootstrap-5') }}
     </div>
 @endsection
 @section("titolo", "I miei Ordini")
