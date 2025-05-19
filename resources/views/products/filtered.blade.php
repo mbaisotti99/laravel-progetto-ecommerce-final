@@ -6,7 +6,7 @@
     <div class="container">
 
         <h1 class="text-center my-5">
-            {{$cat}}
+            Categoria {{ucfirst($cat)}}
         </h1>
 
         <div class="row mb-5">

@@ -8,8 +8,8 @@
   @endif
   <img src="{{asset("storage/prods/$prod->img")}}" class="card-img-top" alt="...">
   <div class="card-body">
-    <h5 class="card-title">{{$prod->nome}}</h5>
-    <p class="card-title">{{$prod->categoria}}</p>
+    <h5 class="card-title">{{ucfirst($prod->nome)}}</h5>
+    <p class="card-title">{{ucfirst($prod->categoria)}}</p>
     {{ $desc }}
     <p class="card-title">{{implode(" - ", $prod->taglie)}}</p>
     <p class="card-text d-flex align-items-center w-100 justify-content-center gap-2">

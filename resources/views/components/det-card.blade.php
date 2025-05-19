@@ -10,8 +10,8 @@
     <form action="{{ route("user.addToCart", $prod) }}" method="POST">
         @csrf
         <div class="card-body">
-            <h5 class="card-title">{{$prod->nome}}</h5>
-            <p class="card-title">{{$prod->categoria}}</p>
+            <h5 class="card-title">{{ucfirst($prod->nome)}}</h5>
+            <p class="card-title">{{ucfirst($prod->categoria)}}</p>
             {{ $prod->descrizione }}
             <!-- <p class="card-title">{{implode(" - ", $prod->taglie)}}</p> -->
              <br>

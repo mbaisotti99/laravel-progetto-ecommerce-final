@@ -9,7 +9,7 @@
         <img src="{{asset("storage/prods/$prod->img")}}" alt="..." style="max-height: 100%; width:200px;">
     </a>
     <p class="card-title fs-2">
-        {{ $prod->nome }}
+        {{ ucfirst($prod->nome) }}
     </p>
 
         <div class="size">
