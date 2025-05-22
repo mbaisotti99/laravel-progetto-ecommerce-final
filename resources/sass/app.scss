@@ -205,3 +205,26 @@ footer{
     display: flex;
     justify-content: space-around;
 }
+
+//Write rev
+
+.writeRevCont{
+    border: 1px solid lightgray;
+    border-radius: 15px;
+    margin-bottom: 50px;
+}
+
+.star{
+    color: black;
+    font-size: 50px;
+    cursor: pointer;
+}
+
+.revForm .col-12{
+    display: flex;
+    justify-content: center;
+}
+
+.revCardImg{
+    border-radius: 15px 0 0 15px;
+}

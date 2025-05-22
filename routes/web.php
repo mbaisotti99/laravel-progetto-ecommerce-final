@@ -34,7 +34,8 @@ Route::name("products.")
     Route::get("/products/{prod}", [ProductController::class, "details"])->name("details");
 });
 
-Route::name("order.")
+Route::middleware(["auth", "verified"])
+->name("order.")
 ->prefix("order")
 ->group(function(){
     Route::get("/checkout", [OrderController::class, "checkout"])
@@ -57,6 +58,8 @@ Route::middleware(["auth", "verified"])
     Route::post("/cart/add/{prod}", [UserController::class, "addToCart"])->name("addToCart");
     Route::put("/cart/update/{prod}", [UserController::class, "updateCart"])->name("updateCart");
     Route::delete("/cart/remove/{prod}/{taglia}", [UserController::class, "removeFromCart"])->name("removeFromCart");
+    Route::get("/review/{prod}", [UserController::class, "writeReview"])->name("writeReview");
+    Route::post("/review/{prod}/send", [UserController::class, "storeReview"])->name("storeReview");
 });
 
 Route::middleware('auth')->group(function () {

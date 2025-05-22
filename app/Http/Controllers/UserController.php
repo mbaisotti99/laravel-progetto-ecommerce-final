@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Invoice;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Review;
+use Date;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -158,6 +160,30 @@ class UserController extends Controller
         ])->first();
 
         return redirect(route("user.cart", compact("order")));
+    }
+
+
+    public function writeReview($prod) {
+        $prod = Product::find($prod);
+
+        return view("user.review", compact("prod"));
+    }
+
+
+    public function storeReview($prod, Request $request){
+
+        $data = $request->all();
+
+        $newRev = new Review();
+        $newRev->utente = Auth::user()->name;
+        $newRev->voto = $data["stars"];
+        $newRev->data = now();
+        $newRev->testo = $data["text"];
+        $newRev->product_id = $prod;
+
+        $newRev->save();
+        
+        return redirect(route("products.details", $prod));
     }
 }
 

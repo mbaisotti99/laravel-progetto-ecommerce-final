@@ -35,6 +35,19 @@ use Carbon\Carbon;
                                 {{$prod->prezzo}}€
                             </td>
                         </tr>
+                        @if ($order->status == "consegnato" && !$prod->reviews->pluck("utente")->contains(Auth::user()->name))
+
+                        <tr>
+                            <div class="w-100">
+                                <td colspan="5" class="text-center">
+                                    <a href="{{ route("user.writeReview", $prod->id) }}" class="btn btn-primary">
+                                        Scrivi una Recensione
+                                    </a>
+                                </td>
+                            </div>
+                        </tr>
+
+                        @endif
                     @endforeach
                     <tr>
                         <td>{{$order->ship->nome}}</td>
@@ -68,6 +81,7 @@ use Carbon\Carbon;
                             </td>
                         </tr>
                     @endif
+                    
                 </table>
                 <hr>
             @endforeach
