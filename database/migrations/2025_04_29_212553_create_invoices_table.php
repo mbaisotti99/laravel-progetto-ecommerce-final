@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId("ship_id");
             $table->integer("costo");
             $table->string("status");
+            $table->longText("note")->default("");
             $table->timestamps();
         });
     }

@@ -173,8 +173,35 @@ footer{
     background-color: green;
 }
 
+.annullato{
+    background-color: red;
+}
+
 .adminPanel{
     display: flex;
     align-items: center;
+    justify-content: space-around;
+}
+
+//Admin Orders
+
+.userAdminCard{
+    text-align: center;
+    width: 300px;
+    height: 300px;
+    border-radius: 150px;
+    border: 2px double lightgray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.invCont{
+    margin: 50px 0;
+}
+
+.orderTools{
+    display: flex;
     justify-content: space-around;
 }

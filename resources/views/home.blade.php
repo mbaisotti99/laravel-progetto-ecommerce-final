@@ -14,6 +14,7 @@
         </h1>
         <div class="adminPanel">
             <a href="{{ route("prods-admin.index") }}" class="btn btn-primary fs-3">Prodotti</a>
+            <a href="{{ route("admin.orders") }}" class="btn btn-primary fs-3">Utenti & Ordini</a>
         </div>
 
         @endif

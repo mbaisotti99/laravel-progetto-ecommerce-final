@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Invoice;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -20,6 +21,17 @@ class UserController extends Controller
         $invoices = Auth::user()->invoices()->orderByDesc("created_at")->paginate(5);
         return view("user.orders", compact("invoices"));
     }
+
+    public function orderReceived($order){
+        $order = Invoice::find($order);
+
+        $order->status = "consegnato";
+        $order->update();
+
+        return redirect(route("user.orders"));
+    }
+
+
     public function cart()
     {
         $order = Auth::user()->order()->with([

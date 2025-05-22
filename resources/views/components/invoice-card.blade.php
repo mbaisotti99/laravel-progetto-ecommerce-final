@@ -1,14 +1,6 @@
-@extends("layouts.master")
-@section("titolo", "Finalizza ordine")
+@props(["invoice"])
 
-@section("contenuto")
-
-    <div class="container cent">
-        <h1 class="text-center my-5">Controlla il tuo ordine</h1>
-        <x-invoice-card 
-        :invoice="$invoice"
-        />
-        <!-- <table class="table table-striped">
+<table class="table table-striped invCard">
             <tr>
                 <th>
                     Prodotto
@@ -55,21 +47,8 @@
         <h2 class="my-3">
             Indirizzo di spedizione
         </h2>
-        <div class="card p-4 my3">
+        <div class="card p-4 my-3">
             {{ $invoice->address->nome . " " . $invoice->address->cognome }} <br>
             {{ $invoice->address->indirizzo . " " . $invoice->address->civico }} <br>
             {{ $invoice->address->localita . " (" . $invoice->address->provincia . ") " . $invoice->address->cap }}
-        </div> -->
-        <div class="d-flex justify-content-around gap-5">
-            <form action="{{route("order.finalize", $invoice->id)}}" method="POST">
-                @csrf
-                <button class="btn btn-success mt-5" type="submit">Conferma ordine</button>
-            </form>
-            <form action="{{route("order.cancel", $invoice->id)}}" method="POST">
-                @csrf
-                @method("DELETE")
-                <button class="btn btn-secondary mt-5" type="submit">Annulla </button>
-            </form>
         </div>
-    </div>
-@endsection

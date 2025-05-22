@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminProdController;
 use App\Http\Controllers\MainControler;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\Admin;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainControler::class, "home"])->name("home");
@@ -14,6 +16,15 @@ Route::get('/', [MainControler::class, "home"])->name("home");
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware(Admin::class)
+->name("admin.")
+->prefix("admin")
+->group(function(){
+    Route::get("/orders", [AdminController::class, "adminOrders"])->name("orders");
+    Route::get("/orders/{user}", [AdminController::class, "showOrders"])->name("showOrders");
+    Route::put("/orders/update/{order}", [AdminController::class, "changeOrderStatus"])->name("changeOrderStatus");
+});
 
 Route::name("products.")
 ->prefix("products")
@@ -32,6 +43,7 @@ Route::name("order.")
     ->name("storeInvoice");
     Route::post("/checkout/finalize/{invoice}", [OrderController::class, "finalize"])
     ->name("finalize");
+    Route::delete("/checkout/cancel/{invoice}", [OrderController::class, "cancel"])->name("cancel");
 });
 
 Route::middleware(["auth", "verified"])
@@ -40,6 +52,7 @@ Route::middleware(["auth", "verified"])
 ->group(function() {
     Route::get("/details", [UserController::class, "details"])->name("details");
     Route::get("/orders", [UserController::class, "orders"])->name("orders");
+    Route::get("/orders/receive/{order}", [UserController::class, "orderReceived"])->name("orderReceived");
     Route::get("/cart", [UserController::class, "cart"])->name("cart");
     Route::post("/cart/add/{prod}", [UserController::class, "addToCart"])->name("addToCart");
     Route::put("/cart/update/{prod}", [UserController::class, "updateCart"])->name("updateCart");

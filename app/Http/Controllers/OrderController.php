@@ -56,10 +56,23 @@ class OrderController extends Controller
             'status' => 'confermato'
         ]);
 
+        foreach(Auth::user()->invoices as $inv){
+            if ($inv->status == "bozza"){
+                $inv->delete();
+            }
+        }
 
 
         Auth::user()->order->delete();
 
         return redirect(route("user.orders"));
+    }
+
+    public function cancel($invoice)
+    {
+        $inv = Invoice::find($invoice);
+        $inv->delete();
+
+        return redirect(route("user.cart"));
     }
 }

@@ -50,6 +50,24 @@ use Carbon\Carbon;
                         <td><b>Totale:</b></td>
                         <td>{{ $order->costo }}€</td>
                     </tr>
+                    @if ($order->note)
+                    <tr>
+                        <td>Note ordine:</td>
+                        <td colspan="4">
+                            {{ $order->note }}
+                        </td>
+                    </tr>
+                    @endif
+                    @if ($order->status == "spedito")
+                        <tr>
+                            <td colspan="4"></td>
+                            <td>
+                                <a href="{{ route("user.orderReceived", $order->id) }}" class="btn btn-success fs-4">
+                                    Conferma Consegna
+                                </a>
+                            </td>
+                        </tr>
+                    @endif
                 </table>
                 <hr>
             @endforeach
