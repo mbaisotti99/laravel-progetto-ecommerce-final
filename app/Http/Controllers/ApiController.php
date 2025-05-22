@@ -9,7 +9,18 @@ class ApiController extends Controller
 {
     public function index()
     {
-        $prods = Product::all();
+        $prods = Product::with('reviews')
+            ->get()
+            ->map(function ($product) {
+
+                $averageRating = $product->reviews->avg('voto');
+                $product->average_rating = $averageRating;
+                if ($averageRating > 4) {
+                    $product->hot = true;
+                }
+                return $product;
+            })
+            ;
 
         if (!$prods) {
             return response()->json([
@@ -144,7 +155,9 @@ class ApiController extends Controller
 
         $prods = $isTagliaFiltered ?
 
-            Product::where("nome", "LIKE", "%$nome%")
+            Product::when($nome !== "", function ($q) use ($nome) {
+                return $q->where("nome", "LIKE", "%$nome%");
+            })
                 ->whereIn("categoria", $categoria)
                 ->where("prezzo", ">=", $prezzoMin)
                 ->where("prezzo", "<=", $prezzoMax)
@@ -163,7 +176,9 @@ class ApiController extends Controller
 
             :
 
-            Product::where("nome", "LIKE", "%$nome%")
+            Product::when($nome !== "", function ($q) use ($nome) {
+                return $q->where("nome", "LIKE", "%$nome%");
+            })
                 ->whereIn("categoria", $categoria)
                 ->where("prezzo", ">=", $prezzoMin)
                 ->where("prezzo", "<=", $prezzoMax)

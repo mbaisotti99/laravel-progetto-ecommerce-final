@@ -6,7 +6,7 @@ return [
 
 'allowed_methods' => ['*'], // oppure ['GET', 'POST', 'PUT', 'DELETE']
 
-'allowed_origins' => ['http://localhost:5174'], // oppure ['https://example.com']
+'allowed_origins' => ['*'], // oppure ['https://example.com']
 
 'allowed_origins_patterns' => [],
 
