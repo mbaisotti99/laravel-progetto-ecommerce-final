@@ -85,6 +85,24 @@ class UserController extends Controller
         $user = Auth::user();
         $curOrder = $user->order;
 
+        if ($newQuantita !== $oldQuantita) {
+            if ($newQuantita > 0) {
+                DB::table('order_product')
+                    ->where('order_id', $curOrder->id)
+                    ->where('product_id', $prod->id)
+                    ->where('taglia', $oldSize)
+                    ->update([
+                        'quantita' => $newQuantita
+                    ]);
+            } else {
+                DB::table('order_product')
+                    ->where('order_id', $curOrder->id)
+                    ->where('product_id', $prod->id)
+                    ->where('taglia', $oldSize)
+                    ->delete();
+            }
+        }
+
         if ($newSize !== $oldSize) {
             $sameSizeProd = $curOrder->products->filter(function ($item) use ($prod, $newSize) {
                 return $item->id == $prod->id && $item->pivot->taglia == $newSize;
@@ -113,23 +131,7 @@ class UserController extends Controller
             }
         }
 
-        if ($newQuantita !== $oldQuantita) {
-            if ($newQuantita > 0) {
-                DB::table('order_product')
-                    ->where('order_id', $curOrder->id)
-                    ->where('product_id', $prod->id)
-                    ->where('taglia', $oldSize)
-                    ->update([
-                        'quantita' => $newQuantita
-                    ]);
-            } else {
-                DB::table('order_product')
-                    ->where('order_id', $curOrder->id)
-                    ->where('product_id', $prod->id)
-                    ->where('taglia', $oldSize)
-                    ->delete();
-            }
-        }
+        
 
         $order = Auth::user()->order()->with([
             'products' => function ($q) {
