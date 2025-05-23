@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class MainControler extends Controller
@@ -28,4 +29,16 @@ class MainControler extends Controller
 
         return view("home", compact("bestProds"));
     }
+
+    public function contacts (){
+        return view("info.contatti");
+    }
+    public function chiSiamo (){
+        $revs = Review::where("voto", ">", 4)
+        ->get()
+        ->sortByDesc("voto")
+        ->take(4);
+        return view("info.chiSiamo", compact("revs"));
+    }
+
 }

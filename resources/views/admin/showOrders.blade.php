@@ -46,7 +46,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="cancelOrder{{$invoice->codice}}ModalLabel">Elimina Prodotto</h1>
+                                <h1 class="modal-title fs-5" id="cancelOrder{{$invoice->codice}}ModalLabel">Cancella Ordine</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <form action="{{route("admin.changeOrderStatus", $invoice->id)}}" method="POST">

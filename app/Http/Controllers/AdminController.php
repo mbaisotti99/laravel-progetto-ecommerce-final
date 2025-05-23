@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     public function adminOrders () {
-        $users = User::where("role", "user")->get();
+        $users = User::all();
 
         return view("admin.orders", compact("users"));
     }

@@ -18,7 +18,7 @@
         </div>
 
         @endif
-        <h1 class="text-center my-5">I Nostri prodotti migliori</h1>
+        <h1 class="text-center my-5">In evidenza</h1>
         <div class="row">
             @foreach ($bestProds as $prod)
                 <div class="col-4 mb-5">

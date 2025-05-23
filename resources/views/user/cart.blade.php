@@ -2,6 +2,7 @@
 @section("contenuto")
 
     @php
+    $grandTotal = null;
         session_start();
         if ($order) {
             $grandTotal = 0;
@@ -20,7 +21,7 @@
 
     @endphp
 
-    <div class="container d-flex justify-content-center align-items-center h-100">
+    <div class="container d-flex justify-content-center align-items-center h-100 pb-5">
         @if ($order)
             <div class="row w-100 mt-5">
 

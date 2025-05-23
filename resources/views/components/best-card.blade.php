@@ -6,7 +6,13 @@
     <p>HOT</p>
     </div>
   @endif
-  <img src="{{asset("storage/prods/$prod->img")}}" class="card-img-top" alt="...">
+  
+  <img 
+  src="{{ asset("storage/loading.gif") }}"
+  data-src="{{asset("storage/prods/$prod->img")}}"
+  class="card-img-top lazy-load" 
+  alt="{{$prod->nome}}"
+  >
   <div class="card-body">
     <h5 class="card-title">{{ucfirst($prod->nome)}}</h5>
     <p class="card-title">{{ucfirst($prod->categoria)}}</p>

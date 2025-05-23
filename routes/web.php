@@ -17,6 +17,11 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get("/contatti", [MainControler::class, "contacts"])->name("contatti");
+
+Route::get("/chi-siamo", [MainControler::class, "chiSiamo"])->name("chiSiamo");
+
+
 Route::middleware(Admin::class)
 ->name("admin.")
 ->prefix("admin")
@@ -71,5 +76,9 @@ Route::middleware('auth')->group(function () {
 Route::resource("address", AddressController::class);
 
 Route::resource("prods-admin", AdminProdController::class);
+
+Route::fallback(function(){
+    return view('errors.404');
+});
 
 require __DIR__.'/auth.php';

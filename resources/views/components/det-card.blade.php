@@ -6,7 +6,10 @@
             <p>HOT</p>
         </div>
     @endif
-    <img src="{{asset("storage/prods/$prod->img")}}" alt="..." class="detImg">
+    <img src="{{ asset("storage/loading.gif") }}" 
+            data-src="{{asset("storage/prods/$prod->img")}}" 
+            alt="..."
+            class="detImg lazy-load">
     <form action="{{ route("user.addToCart", $prod) }}" method="POST">
         @csrf
         <div class="card-body">
@@ -15,12 +18,14 @@
             {{ $prod->descrizione }}
             <!-- <p class="card-title">{{implode(" - ", $prod->taglie)}}</p> -->
              <br>
-             <label class="mt-3" for="taglia">Taglia:</label>
-             <select name="taglia" id="taglia" class="form-control">
-                @foreach ($prod->taglie as $taglia )
-                <option value="{{ $taglia }}">{{$taglia}}</option>
-                @endforeach
-             </select>
+             <div class="tagliaCont">
+                 <label class="mt-3" for="taglia">Taglia:</label>
+                 <select name="taglia" id="taglia" class="form-control text-center" style="width:50px; ">
+                    @foreach ($prod->taglie as $taglia )
+                    <option value="{{ $taglia }}">{{$taglia}}</option>
+                    @endforeach
+                 </select>
+             </div>
             <p class="card-text d-flex align-items-center w-100 justify-content-center gap-2 mt-3">
                 @php
                 $revs = $prod->reviews;

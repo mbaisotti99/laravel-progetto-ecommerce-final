@@ -19,12 +19,12 @@
                 </ul>
             </li>
             <li>
-                <a href="#" class="navLink">
+                <a href="{{route("chiSiamo")}}" class="navLink">
                     Chi siamo
                 </a>
             </li>
             <li>
-                <a href="#" class="navLink">
+                <a href="{{route("contatti")}}" class="navLink">
                     Contatti
                 </a>
             </li>
