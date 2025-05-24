@@ -56,15 +56,26 @@ Route::middleware(["auth", "verified"])
 ->name("user.")
 ->prefix("user")
 ->group(function() {
-    Route::get("/details", [UserController::class, "details"])->name("details");
-    Route::get("/orders", [UserController::class, "orders"])->name("orders");
-    Route::get("/orders/receive/{order}", [UserController::class, "orderReceived"])->name("orderReceived");
-    Route::get("/cart", [UserController::class, "cart"])->name("cart");
-    Route::post("/cart/add/{prod}", [UserController::class, "addToCart"])->name("addToCart");
-    Route::put("/cart/update/{prod}", [UserController::class, "updateCart"])->name("updateCart");
-    Route::delete("/cart/remove/{prod}/{taglia}", [UserController::class, "removeFromCart"])->name("removeFromCart");
-    Route::get("/review/{prod}", [UserController::class, "writeReview"])->name("writeReview");
-    Route::post("/review/{prod}/send", [UserController::class, "storeReview"])->name("storeReview");
+    Route::get("/details", [UserController::class, "details"])
+    ->name("details");
+    Route::get("/orders", [UserController::class, "orders"])
+    ->name("orders");
+    Route::get("/orders/receive/{order}", [UserController::class, "orderReceived"])
+    ->name("orderReceived");
+    Route::get("/cart", [UserController::class, "cart"])
+    ->name("cart");
+    Route::post("/cart/add/{prod}", [UserController::class, "addToCart"])
+    ->name("addToCart");
+    Route::put("/cart/update/{prod}", [UserController::class, "updateCart"])
+    ->name("updateCart");
+    Route::delete("/cart/remove/{prod}/{taglia}", [UserController::class, "removeFromCart"])
+    ->name("removeFromCart");
+    Route::get("/review/{prod}", [UserController::class, "writeReview"])
+    ->name("writeReview");
+    Route::post("/review/{prod}/send", [UserController::class, "storeReview"])
+    ->name("storeReview");
+    Route::post("/cart/coupon", [UserController::class, "applyCoupon"])
+    ->name("applyCoupon");
 });
 
 Route::middleware('auth')->group(function () {

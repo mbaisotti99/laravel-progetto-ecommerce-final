@@ -50,11 +50,23 @@
                 <td>1</td>
                 <td>{{$invoice->ship->costo}}€</td>
             </tr>
+            @if ($invoice->coupon)
+                <tr>
+                    <td colspan="3">
+                        Coupon <b>{{ $invoice->coupon }}</b>
+                    </td>
+                    <td>
+                        <b>
+                            - {{ config("coupons")[$invoice->coupon] }}%
+                        </b>
+                    </td>
+                </tr>
+            @endif
             <tr>
                 <td></td>
                 <td></td>
                 <td><b>Totale</b></td>
-                <td><b> {{ $invoice->costo }}€</b></td>
+                <td><b> {{ number_format($invoice->costo, 2, ",", ".") }}€</b></td>
             </tr>
         </table>
         <h2 class="my-3">

@@ -35,9 +35,16 @@ class OrderController extends Controller
         $newInv->address_id = $address;
         $newInv->user_id = Auth::user()->id;
         $newInv->order_id = Auth::user()->order->id;
-        $newInv->costo = $total + $spedizione->costo;
         $newInv->status = "bozza";
         $newInv->ship_id = $spedizione->id;
+
+        $couponSconto = false;
+        if (Auth::user()->order->coupon){
+            $couponSconto = config("coupons")[Auth::user()->order->coupon];
+            $newInv->coupon = Auth::user()->order->coupon;
+        }
+
+        $newInv->costo =  $total + $spedizione->costo;
         
         $newInv->save();
         foreach (Auth::user()->order->products as $prod) {
@@ -75,4 +82,6 @@ class OrderController extends Controller
 
         return redirect(route("user.cart"));
     }
+
+    
 }

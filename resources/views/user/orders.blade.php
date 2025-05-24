@@ -73,16 +73,30 @@
                         </td>
                         <td>{{ $order->address->nome . " " . $order->address->cognome }}</td>
                         <td>{{ $order->address->indirizzo . " " . $order->address->civico }}</td>
-                        <td>{{ $order->address->localita . " (" . $order->address->provincia . ") " . $order->address->cap }}</td>
-                        <td>{{ $order->ship->costo }}€</td>
+                        <td>
+                            {{ $order->address->localita . " (" . $order->address->provincia . ") " . $order->address->cap }}
+                        </td>
+                        <td>
+                            {{ $order->ship->costo }}€
+                        </td>
                     </tr>
+                    @if ($order->coupon)
+                        <tr>
+                            <td colspan="4">
+                                Coupon <b>{{$order->coupon}}</b>
+                            </td>
+                            <td>
+                                <b>
+                                    - {{ config("coupons")[$order->coupon] }}%
+                                </b>
+                            </td>
+                        </tr>
+                    @endif
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td colspan="3"></td>
                         <td><b>Totale:</b></td>
                         <td><b>
-                                {{ $order->costo }}€
+                                {{ number_format($order->costo, 2, ",", ".") }}€
                             </b>
                         </td>
                     </tr>

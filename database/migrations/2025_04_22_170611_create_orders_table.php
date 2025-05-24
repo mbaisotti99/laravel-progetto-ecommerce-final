@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("user_id");
             $table->foreignId("invoice_id")->nullable();
+            $table->string("coupon")->nullable();
             
             $table->timestamps();
         });

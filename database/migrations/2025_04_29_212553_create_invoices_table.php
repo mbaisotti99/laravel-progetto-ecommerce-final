@@ -21,6 +21,7 @@ return new class extends Migration
             $table->decimal("costo", 8, 2);
             $table->string("status");
             $table->longText("note")->default("");
+            $table->string("coupon")->nullable();
             $table->timestamps();
         });
     }

@@ -153,6 +153,11 @@ class UserController extends Controller
             ->where('taglia', $taglia)
             ->delete();
 
+        if ( count(Auth::user()->order->products) == 0){
+            Auth::user()->order->delete();
+            return redirect(route("user.cart"));
+        }
+
         $order = Auth::user()->order()->with([
             'products' => function ($q) {
                 $q->withPivot('taglia', 'quantita');
@@ -184,6 +189,31 @@ class UserController extends Controller
         $newRev->save();
         
         return redirect(route("products.details", $prod));
+    }
+
+    public function applyCoupon(Request $request){
+        $data = $request->all();
+
+        $coupons = config("coupons");
+        $inputCode = $data["coupon"];
+
+        $order = Auth::user()->order()->with([
+            'products' => function ($q) {
+                $q->withPivot('taglia', 'quantita');
+            }
+        ])->first();
+
+        if (array_key_exists($inputCode, $coupons)){
+            Auth::user()->order->coupon = $inputCode;
+            Auth::user()->order->update();
+        } else{
+            $validCoupon = false;
+            return view("user.cart", compact("order", "validCoupon"));
+        }
+
+        return redirect(route("user.cart"));
+
+
     }
 }
 
