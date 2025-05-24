@@ -19,6 +19,8 @@ return new class extends Migration
             $table->json("taglie");
             $table->string("img");
             $table->bigInteger("prezzo");
+            $table->boolean("scontato");
+            $table->integer("sconto")->nullable();
             $table->timestamps();
         });
     }

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId("order_id");
             $table->foreignId("address_id");
             $table->foreignId("ship_id");
-            $table->integer("costo");
+            $table->decimal("costo", 8, 2);
             $table->string("status");
             $table->longText("note")->default("");
             $table->timestamps();

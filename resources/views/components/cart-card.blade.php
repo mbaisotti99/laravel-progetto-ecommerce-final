@@ -6,12 +6,8 @@
     <input type="hidden" name="old_quantita" value="{{ $prod->pivot->quantita }}">
     <div class=" cartCard mb-4">
         <a href="{{ route("products.details", $prod) }}" class="h-100">
-            <img 
-            src="{{ asset("storage/loading.gif") }}" 
-            data-src="{{asset("storage/prods/$prod->img")}}" 
-            alt="{{ $prod->nome }}"
-            class="lazy-load"
-            style="max-height: 100%; width:200px;">
+            <img src="{{ asset("storage/loading.gif") }}" data-src="{{asset("storage/prods/$prod->img")}}"
+                alt="{{ $prod->nome }}" class="lazy-load" style="max-height: 100%; width:200px;">
         </a>
         <p class="card-title fs-2">
             {{ ucfirst($prod->nome) }}
@@ -29,9 +25,18 @@
             <label for="qty">Quantità:</label>
             <input name="qty" type="number" min="0" id="qty" value="{{ $prod->pivot->quantita }}" style="width:40px">
         </div>
-        <p class="card-title fs-2 ">
-            {{ $prod->prezzo }}€
-        </p>
+        <div class="d-flex gap-2 justify-content-center">
+            <p class="card-title fs-2 {{ $prod->scontato ? "oldPrice" : "" }}">
+                <b>
+                    {{ $prod->prezzo }}€
+                </b>
+            </p>
+            @if ($prod->scontato)
+                <p class="card-title fs-2 discountedPrice">
+                    {{ $prod->prezzo - ($prod->prezzo / 100 * $prod->sconto)  }}€
+                </p>
+            @endif
+        </div>
         <button type="submit" class="btn">
             <i class="bi bi-arrow-clockwise fs-2"></i>
         </button>

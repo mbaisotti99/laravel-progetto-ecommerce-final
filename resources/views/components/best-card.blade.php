@@ -6,13 +6,9 @@
     <p>HOT</p>
     </div>
   @endif
-  
-  <img 
-  src="{{ asset("storage/loading.gif") }}"
-  data-src="{{asset("storage/prods/$prod->img")}}"
-  class="card-img-top lazy-load" 
-  alt="{{$prod->nome}}"
-  >
+
+  <img src="{{ asset("storage/loading.gif") }}" data-src="{{asset("storage/prods/$prod->img")}}"
+    class="card-img-top lazy-load" alt="{{$prod->nome}}">
   <div class="card-body">
     <h5 class="card-title">{{ucfirst($prod->nome)}}</h5>
     <p class="card-title">{{ucfirst($prod->categoria)}}</p>
@@ -27,14 +23,21 @@
     }
 
     $avg = $somma / count($revs);
-  @endphp
+    @endphp
       {{ round($avg, 2) }} <i class="bi bi-star-fill" style="color: gold; font-size: 22px;"></i>
     </p>
-    <p class="card-title fs-2">
-            <b>
-                {{ $prod->prezzo }}€
-            </b>
+    <div class="d-flex gap-2 w-100 justify-content-center">
+      <p class="card-title fs-2 {{ $prod->scontato ? "oldPrice" : "" }}">
+        <b>
+          {{ $prod->prezzo }}€
+        </b>
+      </p>
+      @if ($prod->scontato)
+        <p class="card-title fs-2 discountedPrice">
+          {{ $prod->prezzo - ($prod->prezzo / 100 * $prod->sconto)  }}€
         </p>
+      @endif
+    </div>
     {{ $add }}
   </div>
 </div>

@@ -8,58 +8,6 @@
         <x-invoice-card 
         :invoice="$invoice"
         />
-        <!-- <table class="table table-striped">
-            <tr>
-                <th>
-                    Prodotto
-                </th>
-                <th>
-                    Taglia
-                </th>
-                <th>
-                    Quantità
-                </th>
-                <th>
-                    Prezzo
-                </th>
-            </tr>
-            @foreach ($invoice->products as $prod)
-                <tr>
-                    <td>
-                        {{$prod->nome}}
-                    </td>
-                    <td>
-                        {{$prod->pivot->taglia}}
-                    </td>
-                    <td>
-                        {{$prod->pivot->quantita}}
-                    </td>
-                    <td>
-                        {{$prod->prezzo}}€
-                    </td>
-                </tr>
-            @endforeach
-            <tr>
-                <td>{{$invoice->ship->nome}}</td>
-                <td></td>
-                <td>1</td>
-                <td>{{$invoice->ship->costo}}€</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td><b>Totale</b></td>
-                <td><b> {{ $invoice->costo + $invoice->ship->costo }}€</b></td>
-            </tr>
-        </table>
-        <h2 class="my-3">
-            Indirizzo di spedizione
-        </h2>
-        <div class="card p-4 my3">
-            {{ $invoice->address->nome . " " . $invoice->address->cognome }} <br>
-            {{ $invoice->address->indirizzo . " " . $invoice->address->civico }} <br>
-            {{ $invoice->address->localita . " (" . $invoice->address->provincia . ") " . $invoice->address->cap }}
-        </div> -->
         <div class="d-flex justify-content-around gap-5">
             <form action="{{route("order.finalize", $invoice->id)}}" method="POST">
                 @csrf

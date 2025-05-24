@@ -276,3 +276,13 @@ footer{
     border-radius: 25px;
     padding: 30px;
 }
+
+.oldPrice{
+    text-decoration: line-through;
+    font-weight: lighter !important;
+}
+
+.discountedPrice{
+    color: red !important;
+    font-weight: bold !important;
+}

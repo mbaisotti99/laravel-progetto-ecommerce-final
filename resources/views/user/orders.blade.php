@@ -1,5 +1,5 @@
 @php
-use Carbon\Carbon;
+    use Carbon\Carbon;
 @endphp
 @extends("layouts.master")
 @section("contenuto")
@@ -11,7 +11,10 @@ use Carbon\Carbon;
             @foreach ($invoices as $order)
                 <table class="table table-striped my-5">
                     <tr>
-                        <th class="d-flex align-items-center gap-2"><div class="dot {{$order->status}}"></div>{{ ucfirst($order->status) . " " . Carbon::parse($order->updated_at)->format("d-m-Y") }}</th>
+                        <th class="d-flex align-items-center gap-2">
+                            <div class="dot {{$order->status}}">
+                            </div>{{ ucfirst($order->status) . " " . Carbon::parse($order->updated_at)->format("d-m-Y") }}
+                        </th>
                         <th>Prodotto</th>
                         <th>Quantità</th>
                         <th>Taglia</th>
@@ -32,28 +35,45 @@ use Carbon\Carbon;
                                 {{$prod->pivot->taglia}}
                             </td>
                             <td>
-                                {{$prod->prezzo}}€
+                                @if ($prod->scontato)
+                                    <div class="d-flex gap-2">
+                                        <p class="card-text">
+                                            {{ $prod->prezzo - ($prod->prezzo / 100 * $prod->sconto)  }}€
+                                        </p>
+                                        <p class="card-text">
+                                            <b>
+                                                (-{{ $prod->sconto }}%)
+                                            </b>
+                                        </p>
+                                    </div>
+                                @else
+                                    {{ $prod->prezzo }}€
+                                @endif
                             </td>
                         </tr>
                         @if ($order->status == "consegnato" && !$prod->reviews->pluck("utente")->contains(Auth::user()->name))
 
-                        <tr>
-                            <div class="w-100">
-                                <td colspan="5" class="text-center">
-                                    <a href="{{ route("user.writeReview", $prod->id) }}" class="btn btn-primary">
-                                        Scrivi una Recensione
-                                    </a>
-                                </td>
-                            </div>
-                        </tr>
+                            <tr>
+                                <div class="w-100">
+                                    <td colspan="5" class="text-center">
+                                        <a href="{{ route("user.writeReview", $prod->id) }}" class="btn btn-primary">
+                                            Scrivi una Recensione
+                                        </a>
+                                    </td>
+                                </div>
+                            </tr>
 
                         @endif
                     @endforeach
                     <tr>
-                        <td>{{$order->ship->nome}}</td>
+                        <td>
+                            <b>
+                                {{$order->ship->nome}}
+                            </b>
+                        </td>
                         <td>{{ $order->address->nome . " " . $order->address->cognome }}</td>
                         <td>{{ $order->address->indirizzo . " " . $order->address->civico }}</td>
-                        <td>{{ $order->address->localita ." (". $order->address->provincia . ") " . $order->address->cap }}</td>
+                        <td>{{ $order->address->localita . " (" . $order->address->provincia . ") " . $order->address->cap }}</td>
                         <td>{{ $order->ship->costo }}€</td>
                     </tr>
                     <tr>
@@ -61,15 +81,18 @@ use Carbon\Carbon;
                         <td></td>
                         <td></td>
                         <td><b>Totale:</b></td>
-                        <td>{{ $order->costo }}€</td>
-                    </tr>
-                    @if ($order->note)
-                    <tr>
-                        <td>Note ordine:</td>
-                        <td colspan="4">
-                            {{ $order->note }}
+                        <td><b>
+                                {{ $order->costo }}€
+                            </b>
                         </td>
                     </tr>
+                    @if ($order->note)
+                        <tr>
+                            <td>Note ordine:</td>
+                            <td colspan="4">
+                                {{ $order->note }}
+                            </td>
+                        </tr>
                     @endif
                     @if ($order->status == "spedito")
                         <tr>
@@ -81,7 +104,7 @@ use Carbon\Carbon;
                             </td>
                         </tr>
                     @endif
-                    
+
                 </table>
                 <hr>
             @endforeach

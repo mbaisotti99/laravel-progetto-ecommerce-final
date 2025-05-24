@@ -14,7 +14,7 @@
                 </a>
                 <ul class="dropdown-menu">
                     @foreach ($cats as $cat )
-                    <li><a class="dropdown-item" href="{{route("products.filtered", $cat )}}">{{ $cat }}</a></li>
+                    <li><a class="dropdown-item" href="{{route("products.filtered", $cat )}}">{{ ucfirst($cat->value) }}</a></li>
                     @endforeach
                 </ul>
             </li>

@@ -35,6 +35,11 @@ class ProductSeeder extends Seeder
             $newProd->taglie = $scelte;
             $newProd->img = "prod_$i.jpg";
             $newProd->prezzo = rand(35, 120);
+            $isDiscounted =  $faker->boolean("30");
+            $newProd->scontato = $isDiscounted;
+            if ($isDiscounted) {
+                $newProd->sconto = rand(5, 50);
+            }
             
             $newProd->save();
 

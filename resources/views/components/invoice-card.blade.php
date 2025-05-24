@@ -27,7 +27,20 @@
                         {{$prod->pivot->quantita}}
                     </td>
                     <td>
-                        {{$prod->prezzo}}€
+                        @if ($prod->scontato)
+                        <div class="d-flex gap-2">
+                            <p class="card-text">
+                                {{ $prod->prezzo - ($prod->prezzo / 100 * $prod->sconto)  }}€
+                            </p>
+                            <p class="card-text">
+                                <b>
+                                    (-{{ $prod->sconto }}%)
+                                </b>
+                            </p>
+                        </div>
+                        @else
+                        {{ $prod->prezzo }}
+                        @endif
                     </td>
                 </tr>
             @endforeach
@@ -41,7 +54,7 @@
                 <td></td>
                 <td></td>
                 <td><b>Totale</b></td>
-                <td><b> {{ $invoice->costo + $invoice->ship->costo }}€</b></td>
+                <td><b> {{ $invoice->costo }}€</b></td>
             </tr>
         </table>
         <h2 class="my-3">

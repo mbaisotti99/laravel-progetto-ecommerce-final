@@ -6,11 +6,15 @@
         session_start();
         if ($order) {
             $grandTotal = 0;
+            $sconto = false;
             foreach ($order->products as $prod) {
+            if ($prod->scontato) {
+            $sconto = $prod->prezzo / 100 * $prod->sconto;
+            } 
                 if ($prod->pivot->quantita == 1) {
-                    $grandTotal += $prod->prezzo;
+                    $grandTotal += !$prod->scontato ? $prod->prezzo : $prod->prezzo - $sconto  ;
                 } else {
-                    $totaleProd = $prod->prezzo * $prod->pivot->quantita;
+                    $totaleProd = (!$prod->scontato ? $prod->prezzo : $prod->prezzo - $sconto) * $prod->pivot->quantita;
                     $grandTotal += $totaleProd;
                 }
             }
