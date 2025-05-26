@@ -307,6 +307,11 @@ footer{
     .qty label{
         display: none;
     }
+
+    .size select{
+        width: 40px;
+        font-size: 15px !important;
+    }
 }
 
 @media screen and (min-width: 786px){

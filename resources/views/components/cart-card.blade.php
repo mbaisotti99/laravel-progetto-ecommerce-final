@@ -23,7 +23,7 @@
         </div>
         <div class="qty fs-3">
             <label for="qty">Quantità:</label>
-            <input name="qty" type="number" min="0" id="qty" value="{{ $prod->pivot->quantita }}" style="width:40px">
+            <input name="qty" type="number" min="0" id="qty" value="{{ $prod->pivot->quantita }}" style="width:40px" class="form-control">
         </div>
         <div class="d-flex gap-2 justify-content-center">
             <p class="card-title fs-2 {{ $prod->scontato ? "oldPrice" : "" }}">
@@ -37,14 +37,14 @@
                 </p>
             @endif
         </div>
-        <button type="submit" class="btn">
+        <button type="submit" class="btn p-0">
             <i class="bi bi-arrow-clockwise fs-2"></i>
         </button>
 </form>
 <form action="{{route("user.removeFromCart", [$prod, $prod->pivot->taglia])}}" method="POST">
     @csrf
     @method("DELETE")
-    <button type="submit" class="btn">
+    <button type="submit" class="btn p-0">
         <i class="bi bi-x-circle fs-2 me-4"></i>
     </button>
 </form>
