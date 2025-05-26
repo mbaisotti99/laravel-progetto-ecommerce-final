@@ -12,7 +12,7 @@
         <div class="row mb-5">
             @foreach ($prods as $prod)
 
-                <div class="col-6 mb-5">
+                <div class="col-sm-12 col-md-6 col-lg-4 mb-5">
                     <x-best-card :prod="$prod">
                         <x-slot:desc>
                             <p class="card-text">{{$prod->descrizione}}</p>

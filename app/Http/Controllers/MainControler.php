@@ -12,32 +12,49 @@ class MainControler extends Controller
     {
         $prods = Product::all();
 
-        $bestProds = Product::with('reviews') 
-            ->get() 
+        $bestProds = Product::with('reviews')
+            ->get()
             ->map(function ($product) {
-                
+
                 $averageRating = $product->reviews->avg('voto');
-                $product->average_rating = $averageRating; 
-                if ($averageRating > 4){
+                $product->average_rating = $averageRating;
+                if ($averageRating > 4) {
                     $product->hot = true;
                 }
                 return $product;
             })
-            ->sortByDesc('average_rating') 
-            ->take(9);
+            ->sortByDesc('average_rating')
+            ->take(3);
+
+        $discountedProds = Product::where("scontato", 1)
+            ->with("reviews")
+            ->get()
+            ->map(function ($product) {
+
+                $averageRating = $product->reviews->avg('voto');
+                $product->average_rating = $averageRating;
+                if ($averageRating > 4) {
+                    $product->hot = true;
+                }
+                return $product;
+            })
+            ->sortByDesc('sconto')
+            ->take(3);
 
 
-        return view("home", compact("bestProds"));
+        return view("home", compact("bestProds", "discountedProds"));
     }
 
-    public function contacts (){
+    public function contacts()
+    {
         return view("info.contatti");
     }
-    public function chiSiamo (){
+    public function chiSiamo()
+    {
         $revs = Review::where("voto", ">", 4)
-        ->get()
-        ->sortByDesc("voto")
-        ->take(4);
+            ->get()
+            ->sortByDesc("voto")
+            ->take(4);
         return view("info.chiSiamo", compact("revs"));
     }
 

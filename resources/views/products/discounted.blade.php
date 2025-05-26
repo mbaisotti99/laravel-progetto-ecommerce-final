@@ -1,19 +1,19 @@
 @extends("layouts.master")
-@section("titolo", "$cat")
+@section("titolo", "Prodotti Scontati")
 
 @section("contenuto")
 
     <div class="container">
 
         <h1 class="text-center my-5">
-            Categoria {{ucfirst($cat)}}
+            Prodotti in sconto
         </h1>
 
         <div class="row mb-5">
-            @foreach ($prods as $prod )
-    
+            @foreach ($prods as $prod)
+
                 <div class="col-sm-12 col-md-6 col-lg-4 mb-5">
-                <x-best-card :prod="$prod">
+                    <x-best-card :prod="$prod">
                         <x-slot:desc>
                             <p class="card-text">{{$prod->descrizione}}</p>
                         </x-slot:desc>
@@ -25,10 +25,11 @@
                         </x-slot:add>
                     </x-best-card>
                 </div>
-            
+
             @endforeach
         </div>
 
+        {{ $prods->links('pagination::bootstrap-5') }}
 
 
     </div>

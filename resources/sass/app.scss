@@ -50,6 +50,7 @@ header{
     justify-content: space-between;
     align-items: center;
     padding: 0 50px;
+    position: relative;
 }
 
 .navBar{
@@ -74,6 +75,12 @@ a{
 li>a:hover{
     color: rgb(145, 145, 145);
     transition: ease-in-out 0.5s;
+}
+
+.logo{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 // Footer
@@ -131,6 +138,7 @@ footer{
     border: 1px solid lightgray;
     border-radius: 5px;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .detImg{
@@ -285,4 +293,46 @@ footer{
 .discountedPrice{
     color: red !important;
     font-weight: bold !important;
+}
+
+@media screen and (max-width: 786px){
+	.desktopNav{
+        display: none;
+    }
+
+    .hamburgerNav{
+        display: block;
+    }
+
+    .qty label{
+        display: none;
+    }
+}
+
+@media screen and (min-width: 786px){
+	.desktopNav{
+        display: flex !important;
+    }
+
+    .desktopNav li{
+        width: calc(100% / 3);
+        flex-wrap: wrap;
+    }
+
+    .hamburgerNav{
+        display: none;
+    }
+
+    header{
+        min-height: 300px;
+    }
+}
+
+@media screen and (min-width: 1024px){
+    header{
+        min-height: 250px;
+    }
+    .desktopNav{
+        display: flex !important;
+    }
 }

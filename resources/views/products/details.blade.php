@@ -13,10 +13,10 @@ $sortedRevs = $prod->reviews->sortByDesc("data");
 </script>
     <div class="container cent">
         <div class="row mb-5">
-            <div class="col-4 prodCont">
+            <div class="col-4 col-sm-12 prodCont">
                 <x-det-card :prod="$prod"></x-det-card>
             </div>
-            <div class="col-8 revBox">
+            <div class="col-8 col-sm-12 revBox">
                 @foreach ($sortedRevs as $rev)
                     <x-rev-card :rev="$rev"></x-rev-card>
                     <hr>

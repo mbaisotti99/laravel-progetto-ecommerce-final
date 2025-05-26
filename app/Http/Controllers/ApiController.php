@@ -194,6 +194,12 @@ class ApiController extends Controller
                     return $product;
                 });
 
+        if ($data["discounted"] === true){
+            $prods = $prods->filter(function($prod){
+                return $prod->scontato == 1;
+            });
+        }
+
         if ($prods->isEmpty()) {
 
             return response()->json([
@@ -206,7 +212,7 @@ class ApiController extends Controller
 
         return response()->json([
             "success" => true,
-            "data" => $prods,
+            "data" => array_values($prods->toArray()),
         ]);
 
 
