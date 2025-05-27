@@ -24,7 +24,7 @@ class AdminController extends Controller
         $order = Invoice::find($order);
         $data = $request->all();
 
-        if (array_key_exists("notes", $data) && $data["notes"] !== ""){
+        if (array_key_exists("notes", $data) && $data["notes"] !== "" && $data["notes"] !== null){
             $order->note = $data["notes"];
         }
 

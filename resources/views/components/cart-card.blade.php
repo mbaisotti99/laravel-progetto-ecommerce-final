@@ -23,7 +23,7 @@
         </div>
         <div class="qty fs-3">
             <label for="qty">Quantità:</label>
-            <input name="qty" type="number" min="0" id="qty" value="{{ $prod->pivot->quantita }}" style="width:40px" class="form-control">
+            <input name="qty" type="number" min="0" id="qty" value="{{ $prod->pivot->quantita }}" style="width:40px" >
         </div>
         <div class="d-flex gap-2 justify-content-center">
             <p class="card-title fs-2 {{ $prod->scontato ? "oldPrice" : "" }}">

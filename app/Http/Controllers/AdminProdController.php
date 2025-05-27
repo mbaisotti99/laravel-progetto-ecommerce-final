@@ -34,23 +34,45 @@ class AdminProdController extends Controller
      */
     public function store(Request $request)
     {
+        $taglie = ["XS", "S", "M", "L", "XL", "XXL"];
+
+        $categorie = array_map(fn($e) => $e->value, Categorie::cases());
+
         $data = $request->all();
+
+        if (
+            !empty(array_diff($data["taglie"], $taglie))
+            ||
+            !in_array($data["categoria"], $categorie)
+            ||
+            !is_numeric($data["prezzo"])
+            ||
+            !is_numeric($data["sconto"])
+        ) {
+            return redirect()->back()->with('error', 'Qualcosa è andato storto!');
+        }
 
         $newProd = new Product();
 
-        if(array_key_exists("img",$data)){
+        if (array_key_exists("img", $data)) {
             $img_path = Storage::putFile("prods", $data["img"]);
             $img_name = basename($img_path);
             $newProd->img = $img_name;
-        } else{
+        } else {
             $newProd->img = null;
         }
 
         $newProd->nome = $data["nome"];
         $newProd->descrizione = $data["descrizione"];
         $newProd->categoria = $data["categoria"];
-        $newProd->prezzo = $data["prezzo"];
         $newProd->taglie = $data["taglie"];
+
+        if ($data["sconto"] > 0) {
+            $newProd->scontato = 1;
+            $newProd->sconto = $data["sconto"];
+        }
+
+        $newProd->prezzo = $data["prezzo"];
 
         $newProd->save();
 
@@ -83,12 +105,37 @@ class AdminProdController extends Controller
         $prod = Product::find($product);
         $data = $request->all();
 
-        if(array_key_exists("img", $data)){
+        $taglie = ["XS", "S", "M", "L", "XL", "XXL"];
+
+        $categorie = array_map(fn($e) => $e->value, Categorie::cases());
+
+        if (
+            !empty(array_diff($data["taglie"], $taglie))
+            ||
+            !in_array($data["categoria"], $categorie)
+            ||
+            !is_numeric($data["prezzo"])
+            ||
+            !is_numeric($data["sconto"])
+        ) {
+            return redirect()->back()->with('error', 'Qualcosa è andato storto!');
+        }
+
+        if (array_key_exists("img", $data)) {
             Storage::delete($prod->img);
             $img_path = Storage::putFile("prods", $data["img"]);
             $filename = basename($img_path);
             $prod->img = $filename;
         }
+
+        if ($data["sconto"] > 0) {
+            $prod->scontato = 1;
+            $prod->sconto = $data["sconto"];
+        } else {
+            $prod->scontato = 0;
+            $prod->sconto = null;
+        }
+
         $prod->nome = $data["nome"];
         $prod->descrizione = $data["descrizione"];
         $prod->categoria = $data["categoria"];
@@ -98,7 +145,7 @@ class AdminProdController extends Controller
 
 
         $prod->update();
-        
+
         return redirect(route("prods-admin.index"));
     }
 

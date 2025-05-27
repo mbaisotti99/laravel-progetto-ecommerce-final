@@ -163,6 +163,13 @@ footer {
     left: 5px;
 }
 
+.adminPanelCont{
+    border: 1px solid rgba(180, 80, 80, 0.644);
+    padding: 20px;
+    border-radius: 20px;
+    background-color: rgba(255, 0, 0, 0.219);
+}
+
 .cent {
     display: flex;
     flex-direction: column;
@@ -442,6 +449,15 @@ footer {
         transform: translateX(-50%);
     }
 
+    
+
+}
+
+@media screen and (min-width: 1200px) {
+    .qty{
+        display: flex;
+        gap: 5px;
+    }
 }
 
 

@@ -2,10 +2,17 @@
 @section("titolo", "Crea Prodotto")
 
 @section("contenuto")
-@php
-$taglie = ["XS", "S", "M", "L", "XL", "XXL"];
-@endphp
+    @php
+        $taglie = ["XS", "S", "M", "L", "XL", "XXL"];
+    @endphp
     <div class="container">
+        @if(session('error'))
+            <div class="d-flex w-100 justify-content-center  my-3">
+                <div class="alert alert-danger w-50 text-center">
+                    {{ session('error') }}
+                </div>
+            </div>
+        @endif
         <form action="{{route("prods-admin.store")}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row my-5">
@@ -24,7 +31,7 @@ $taglie = ["XS", "S", "M", "L", "XL", "XXL"];
                 <div class="col-6 py-3">
                     <label for="categoria" class="form-label">Categoria:</label>
                     <select name="categoria" id="categoria" class="form-control">
-                        @foreach ($cats as $cat )
+                        @foreach ($cats as $cat)
                             <option value="{{ $cat }}">{{$cat}}</option>
                         @endforeach
                     </select>
@@ -35,12 +42,19 @@ $taglie = ["XS", "S", "M", "L", "XL", "XXL"];
                 </div>
                 <div class="col-6 py-3">
                     <div class="row">
-                        @foreach ($taglie as $taglia )
+                        @foreach ($taglie as $taglia)
                             <div class="col-4 me-5 mb-3">
-                                <input type="checkbox"  name="taglie[]" value="{{$taglia}}" id="{{ $taglia }}box">
+                                <input type="checkbox" name="taglie[]" value="{{$taglia}}" id="{{ $taglia }}box">
                                 <label for="{{$taglia}}box">{{$taglia}}</label>
                             </div>
                         @endforeach
+                    </div>
+                </div>
+                <div class="col-6 py-3">
+                    <label for="sconto">Sconto:</label>
+                    <div class="input-group">
+                        <input type="number" name="sconto" id="sconto" class="form-control" max="90" value={{0}}>
+                        <span class="input-group-text">%</span>
                     </div>
                 </div>
                 <div class="col-6 py-3">

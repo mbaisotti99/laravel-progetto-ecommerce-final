@@ -9,12 +9,14 @@
         </div>
         @if (Auth::check() && Auth::user()->role == "admin")
 
-        <h1 class="text-center mt-5">
-            Pannello Admin
-        </h1>
-        <div class="adminPanel">
-            <a href="{{ route("prods-admin.index") }}" class="btn btn-primary fs-3">Prodotti</a>
-            <a href="{{ route("admin.orders") }}" class="btn btn-primary fs-3">Utenti & Ordini</a>
+        <div class="adminPanelCont mt-3">
+            <h1 class="text-center mt-5">
+                Pannello Admin
+            </h1>
+            <div class="adminPanel">
+                <a href="{{ route("prods-admin.index") }}" class="btn btn-outline-dark fs-3">Prodotti</a>
+                <a href="{{ route("admin.orders") }}" class="btn btn-outline-dark fs-3">Utenti & Ordini</a>
+            </div>
         </div>
 
         @endif

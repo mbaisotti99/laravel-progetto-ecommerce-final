@@ -28,10 +28,18 @@ class AddressController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {   
+    {
         $page = $request->page;
         $data = $request->all();
         $newAddress = new Address();
+
+        if (
+            !in_array($data["provincia"], config("province"))
+            ||
+            !is_numeric($data["cap"])
+        ) {
+            return redirect()->back()->with('error', 'Qualcosa è andato storto!');
+        }
 
         $newAddress->nome = $data["nome"];
         $newAddress->cognome = $data["cognome"];
@@ -44,7 +52,7 @@ class AddressController extends Controller
 
         $newAddress->save();
 
-        if ($page == "checkout"){
+        if ($page == "checkout") {
             return redirect(route("order.checkout"));
         } else {
             return redirect(route("user.details"));

@@ -24,7 +24,8 @@ class UserController extends Controller
         return view("user.orders", compact("invoices"));
     }
 
-    public function orderReceived($order){
+    public function orderReceived($order)
+    {
         $order = Invoice::find($order);
 
         $order->status = "consegnato";
@@ -47,7 +48,12 @@ class UserController extends Controller
     public function addToCart(Product $prod, Request $req)
     {
         $user = Auth::user();
+        $taglie = ["XXS", "XS", "S", "M", "L", "XL", "XXL"];
         $size = $req->taglia;
+
+        if (!in_array($size, $taglie)) {
+            return redirect()->back()->with('error', 'Qualcosa è andato storto!');
+        }
 
         if (!isset($user->order)) {
             $newOrder = new Order();
@@ -80,12 +86,24 @@ class UserController extends Controller
 
     public function updateCart(Request $req, Product $prod)
     {
+
+        $taglie = ["XXS", "XS", "S", "M", "L", "XL", "XXL"];
+
+
         $newSize = $req->taglia;
         $newQuantita = $req->qty;
         $oldSize = $req->old_taglia;
         $oldQuantita = $req->old_quantita;
         $user = Auth::user();
         $curOrder = $user->order;
+
+        if (!in_array($newSize, $taglie)) {
+            return redirect()->back()->with('error', 'Qualcosa è andato storto!');
+        }
+
+        if (!is_numeric($newQuantita)){
+            return redirect()->back()->with('error', 'Qualcosa è andato storto!');
+        }
 
         if ($newQuantita !== $oldQuantita) {
             if ($newQuantita > 0) {
@@ -133,7 +151,7 @@ class UserController extends Controller
             }
         }
 
-        
+
 
         $order = Auth::user()->order()->with([
             'products' => function ($q) {
@@ -153,7 +171,7 @@ class UserController extends Controller
             ->where('taglia', $taglia)
             ->delete();
 
-        if ( count(Auth::user()->order->products) == 0){
+        if (count(Auth::user()->order->products) == 0) {
             Auth::user()->order->delete();
             return redirect(route("user.cart"));
         }
@@ -168,14 +186,16 @@ class UserController extends Controller
     }
 
 
-    public function writeReview($prod) {
+    public function writeReview($prod)
+    {
         $prod = Product::find($prod);
 
         return view("user.review", compact("prod"));
     }
 
 
-    public function storeReview($prod, Request $request){
+    public function storeReview($prod, Request $request)
+    {
 
         $data = $request->all();
 
@@ -187,15 +207,16 @@ class UserController extends Controller
         $newRev->product_id = $prod;
 
         $newRev->save();
-        
+
         return redirect(route("products.details", $prod));
     }
 
-    public function applyCoupon(Request $request){
+    public function applyCoupon(Request $request)
+    {
         $data = $request->all();
 
         $coupons = config("coupons");
-        $inputCode = $data["coupon"];
+        $inputCode = strtoupper(trim($data["coupon"]));
 
         $order = Auth::user()->order()->with([
             'products' => function ($q) {
@@ -203,12 +224,11 @@ class UserController extends Controller
             }
         ])->first();
 
-        if (array_key_exists($inputCode, $coupons)){
+        if (array_key_exists($inputCode, $coupons)) {
             Auth::user()->order->coupon = $inputCode;
             Auth::user()->order->update();
-        } else{
-            $validCoupon = false;
-            return view("user.cart", compact("order", "validCoupon"));
+        } else {
+            return redirect()->back()->with('error', 'Coupon non valido!');
         }
 
         return redirect(route("user.cart"));

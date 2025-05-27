@@ -7,6 +7,11 @@
         <h1 class="text-center my-5">
             I miei Ordini
         </h1>
+        @if (session('success'))
+            <div class="alert alert-success my-3">
+                {{ session('success') }}
+            </div>
+        @endif
         <div class="orders">
             @foreach ($invoices as $order)
                 <table class="table table-striped my-5">

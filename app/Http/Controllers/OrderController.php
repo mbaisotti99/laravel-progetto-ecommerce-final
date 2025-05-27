@@ -6,6 +6,7 @@ use App\Models\Address;
 use App\Models\Invoice;
 use App\Models\Order;
 use App\Models\Ship;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Faker\Generator;
@@ -28,7 +29,13 @@ class OrderController extends Controller
         $faker = Container::getInstance()->make(Generator::class);
         $address = $request->address;
         $total = $request->total;
-        $spedizione = Ship::find($request->spedizione);
+
+        try{
+            $spedizione = Ship::findOrFail($request->spedizione);
+        } catch (ModelNotFoundException $e){
+            return redirect()->back()->with('error', 'Qualcosa è andato storto!');
+        }
+
         $order = Auth::user()->order;
 
         $newInv->codice = $faker->randomNumber(8, true);
@@ -59,9 +66,13 @@ class OrderController extends Controller
 
     public function finalize($invoice)
     {
-        Invoice::find($invoice)->update([
-            'status' => 'confermato'
-        ]);
+        try{
+            Invoice::find($invoice)->update([
+                'status' => 'confermato'
+            ]);
+        } catch (ModelNotFoundException $e){
+            return redirect()->back()->with('error', 'Qualcosa è andato storto!');
+        }
 
         foreach(Auth::user()->invoices as $inv){
             if ($inv->status == "bozza"){
@@ -72,7 +83,7 @@ class OrderController extends Controller
 
         Auth::user()->order->delete();
 
-        return redirect(route("user.orders"));
+        return redirect(route("user.orders"))->with("success", "Ordine inviato con successo!");
     }
 
     public function cancel($invoice)

@@ -23,7 +23,7 @@
                 }
             }
 
-            if (isset($validCoupon) && $validCoupon){
+            if (isset($validCoupon) && $validCoupon) {
                 $grandTotal -= $grandTotal / 100 * $validCoupon;
             }
 
@@ -33,6 +33,7 @@
         $_SESSION["total"] = $grandTotal;
 
     @endphp
+
 
     <div class="container d-flex justify-content-center align-items-center h-100 pb-5">
         @if ($order && count($order->products->toArray()) > 0)
@@ -45,17 +46,20 @@
                     </div>
 
                 @endforeach
+                @if(session('error'))
+                    <div class="d-flex w-100 justify-content-center  my-3">
+                        <div class="alert alert-danger w-50 text-center">
+                            {{ session('error') }}
+                        </div>
+                    </div>
+                @endif
                 <div class="col-12 d-flex justify-content-between ">
                     <form class="d-flex gap-2 align-items-center" action="{{ route("user.applyCoupon") }}" method="POST">
                         @csrf
                         <label for="coupon">Coupon: </label>
                         <input required type="text" id="coupon" name="coupon" class="form-control" style="width: 150px">
                         <button class="btn btn-outline-primary" {{ isset($validCoupon) && $validCoupon ? "disabled" : "" }}>Applica</button>
-                        @if (isset($validCoupon) && !$validCoupon)
-                            <div class="alert alert-danger" style="width: 250px">
-                                Coupon non valido
-                            </div>
-                        @elseif (isset($validCoupon) && $validCoupon)
+                        @if (isset($validCoupon) && $validCoupon)
                             <div class="alert alert-success" style="width: 250px">
                                 Applicato sconto del {{ $validCoupon }}%
                             </div>

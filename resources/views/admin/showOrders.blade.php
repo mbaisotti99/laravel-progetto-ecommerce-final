@@ -25,19 +25,18 @@
                         </div>
                     @endif
                 </div>
+                @if ($invoice->status == "confermato")
                 <div class="orderTools">
                     <button type="button" class="btn btn-warning fs-3" data-bs-toggle="modal"
-                        data-bs-target="#cancelOrder{{$invoice->codice}}Modal"
-                        {{ $invoice->status !== "confermato" ? "disabled" : "" }}
-                        >
+                        data-bs-target="#cancelOrder{{$invoice->codice}}Modal">
                         Annulla
                     </button>
                     <button type="button" class="btn btn-success fs-3" data-bs-toggle="modal"
-                        data-bs-target="#shipOrder{{ $invoice->id }}Modal"
-                        {{ $invoice->status !== "confermato" ? "disabled" : "" }}>
+                        data-bs-target="#shipOrder{{ $invoice->id }}Modal">
                         Spedisci
                     </button>
                 </div>
+                @endif
                 <hr class="my-5">
 
                 <!-- Cancella  -->

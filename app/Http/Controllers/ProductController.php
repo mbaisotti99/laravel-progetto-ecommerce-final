@@ -9,7 +9,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $prods = Product::paginate(10);
+        $prods = Product::paginate(9);
         foreach ($prods as $prod) {
             if ($prod->reviews->avg("voto") > 4) {
                 $prod->hot = true;
@@ -21,7 +21,7 @@ class ProductController extends Controller
 
     public function filtered($cat)
     {
-        $prods = Product::where("categoria", $cat)->get();
+        $prods = Product::where("categoria", $cat)->paginate(6);
         return view("products.filtered", compact("prods", "cat"));
     }
 

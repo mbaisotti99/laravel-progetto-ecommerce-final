@@ -15,6 +15,13 @@
                 <h1 class="text-center my-5">
                     Seleziona un indirizzo
                 </h1>
+                @if(session('error'))
+                    <div class="d-flex w-100 justify-content-center  my-3">
+                        <div class="alert alert-danger w-50 text-center">
+                            {{ session('error') }}
+                        </div>
+                    </div>
+                @endif
                 <div class="selectAddress d-flex gap-5 fs-2">
                     <select name="address" id="" class="form-control">
                         @foreach ($addresses as $add )

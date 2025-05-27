@@ -23,10 +23,24 @@
                     <td>{{ implode(" - ", $prod->taglie) }}</td>
                     <td>{{ $prod->descrizione }}</td>
                     <td>{{ $prod->categoria }}</td>
-                    <td>{{ $prod->prezzo }}€</td>
+                    <td>
+                        @if ($prod->scontato == 1)
+                        <div class="d-flex gap-2">
+                            <p class="oldPrice">
+                                {{ number_format($prod->prezzo, 2, ".") }}€
+                            </p>
+                            <p class="discountedPrice">
+                                {{ number_format($prod->prezzo - ($prod->prezzo / 100 * $prod->sconto), 2, ".") }}€
+                            </p>
+                        </div>
+                        @else
+                        {{ number_format($prod->prezzo, 2, ".") }}€
+                        @endif
+                    </td>
                     <td><a href="{{ route("prods-admin.edit", $prod->id) }}" class="btn btn-warning fs-3">Modifica</a></td>
                     <td>
-                        <button type="button" class="btn btn-danger fs-3" data-bs-toggle="modal" data-bs-target="#deleteProdModal">
+                        <button type="button" class="btn btn-danger fs-3" data-bs-toggle="modal"
+                            data-bs-target="#deleteProdModal">
                             Elimina
                         </button>
                     </td>

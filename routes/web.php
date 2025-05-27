@@ -36,8 +36,8 @@ Route::name("products.")
 ->group(function() {
     Route::get("/", [ProductController::class, "index"])->name("index");
     Route::get("/filtered/{cat}", [ProductController::class, "filtered"])->name("filtered");
-    Route::get("/{prod}", [ProductController::class, "details"])->name("details");
     Route::get("/discounted", [ProductController::class, "discounted"])->name("discounted");
+    Route::get("/{prod}", [ProductController::class, "details"])->name("details");
 });
 
 Route::middleware(["auth", "verified"])
