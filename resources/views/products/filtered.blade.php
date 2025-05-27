@@ -1,5 +1,5 @@
 @extends("layouts.master")
-@section("titolo", "$cat")
+@section("titolo", ucfirst($cat))
 
 @section("contenuto")
 

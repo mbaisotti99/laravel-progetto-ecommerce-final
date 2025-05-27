@@ -12,28 +12,30 @@
 @import "bootstrap-icons/font/bootstrap-icons.css";
 
 
-body, html{
+body,
+html {
     height: 100% !important;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
-main{
+
+main {
     flex: 1 !important;
 }
 
-.cleanList{
+.cleanList {
     list-style: none;
 }
 
-i.bi{
+i.bi {
     font-size: 55px;
     display: block;
 }
 
 //404
 
-.notFound{
+.notFound {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -43,7 +45,7 @@ i.bi{
 
 // Header
 
-header{
+header {
     min-height: 200px;
     background-color: rgb(69, 107, 189);
     display: flex;
@@ -53,40 +55,80 @@ header{
     position: relative;
 }
 
-.navBar{
+
+
+
+.desktopNav {
+    width: 100%;
+    display: grid;
+}
+
+.desktopNav li {
+    width: auto;
+    display: inline-block;
+}
+
+.navBar {
     display: flex;
     gap: 25px;
     color: white;
     font-size: 25px;
 }
 
-.toolsLinks{
+.toolsLinks {
     display: flex;
-    gap: 45px;
-     color: white;
-     align-items: center;
+    color: white;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    padding: 15px 0;
+    flex-direction: column;
+
+
 }
 
-a{
+.toolsLinks li {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.tools {
+    width: 40%;
+    max-height: 100%;
+}
+
+a {
     color: inherit;
     text-decoration: none;
 }
 
-li>a:hover{
+li>a:hover {
     color: rgb(145, 145, 145);
     transition: ease-in-out 0.5s;
 }
 
-.logo{
-    position: absolute;
+.headLogo {
+    position: relative;
     left: 50%;
     transform: translateX(-50%);
 }
 
+i.bi.bi-list {
+    font-size: 80px !important;
+}
+
+.hamburgerNav .dropdown ul li:not(.dropdown-toggle) {
+    font-size: 40px;
+}
+
+.dropdown-header {
+    font-size: 30px !important;
+}
+
 // Footer
 
-footer{
-    min-height: 200px;
+footer {
     background-color: rgb(69, 107, 189);
     display: flex;
     font-size: 25px;
@@ -97,31 +139,31 @@ footer{
 
 // BestCard
 
-.bestCard{
+.bestCard {
     text-align: center;
 }
 
 //HOT
 
-.hot{
+.hot {
     background-color: red;
     height: 40px;
     width: 40px;
     border-radius: 20px;
     position: absolute;
     display: flex;
-    align-items: center;    
+    align-items: center;
     color: white;
     text-align: center;
 }
 
-.hot p{
+.hot p {
     position: relative;
-    top:  7px;
+    top: 7px;
     left: 5px;
 }
 
-.cent{
+.cent {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -130,27 +172,27 @@ footer{
     height: 100%;
 }
 
-.cartCard{
+.cartCard {
     width: 100%;
     display: flex;
     height: 200px;
-    justify-content: space-between  ;
+    justify-content: space-between;
     border: 1px solid lightgray;
     border-radius: 5px;
     align-items: center;
     flex-wrap: wrap;
 }
 
-.detImg{
+.detImg {
     max-width: 400px;
 }
 
-.detCard{
+.detCard {
     width: 400px;
     margin-top: 100px;
 }
 
-.tagliaCont{
+.tagliaCont {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -160,7 +202,7 @@ footer{
 
 // Reviews
 
-.revBox{
+.revBox {
     border: 1px solid lightgray;
     background-color: rgba(199, 199, 199, 0.589);
     overflow-y: auto;
@@ -168,12 +210,12 @@ footer{
     max-height: 100%;
 }
 
-.prodCont{
+.prodCont {
     max-height: fit-content;
 }
 
 
-.size{
+.size {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -181,33 +223,33 @@ footer{
     align-items: center;
 }
 
-.dot{
+.dot {
     height: 20px;
     width: 20px;
     border-radius: 10px;
 }
 
-.confermato{
+.confermato {
     background-color: yellow;
 }
 
-.bozza{
+.bozza {
     background-color: grey;
 }
 
-.spedito{
+.spedito {
     background-color: blue;
 }
 
-.consegnato{
+.consegnato {
     background-color: green;
 }
 
-.annullato{
+.annullato {
     background-color: red;
 }
 
-.adminPanel{
+.adminPanel {
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -215,7 +257,7 @@ footer{
 
 //Admin Orders
 
-.userAdminCard{
+.userAdminCard {
     text-align: center;
     width: 300px;
     height: 300px;
@@ -226,47 +268,47 @@ footer{
     flex-direction: column;
 }
 
-.userOrder{
+.userOrder {
     border: 2px double lightgray;
 }
 
-.adminOrder{
+.adminOrder {
     border: 2px double rgb(255, 136, 0);
 }
 
-.invCont{
+.invCont {
     margin: 50px 0;
 }
 
-.orderTools{
+.orderTools {
     display: flex;
     justify-content: space-around;
 }
 
 //Write rev
 
-.writeRevCont{
+.writeRevCont {
     border: 1px solid lightgray;
     border-radius: 15px;
     margin-bottom: 50px;
 }
 
-.star{
+.star {
     color: black;
     font-size: 50px;
     cursor: pointer;
 }
 
-.revForm .col-12{
+.revForm .col-12 {
     display: flex;
     justify-content: center;
 }
 
-.revCardImg{
+.revCardImg {
     border-radius: 15px 0 0 15px;
 }
 
-.revCardWho{
+.revCardWho {
     border: 1px solid lightgray;
     border-radius: 15px;
     display: flex;
@@ -279,65 +321,140 @@ footer{
     box-shadow: 0px 25px 20px -20px rgba(0, 0, 0, 0.45), 25px 0 20px -20px rgba(0, 0, 0, 0.45);
 }
 
-.contacts{
+.contacts {
     border: 2px solid lightgray;
     border-radius: 25px;
     padding: 30px;
 }
 
-.oldPrice{
+.oldPrice {
     text-decoration: line-through;
     font-weight: lighter !important;
 }
 
-.discountedPrice{
+.discountedPrice {
     color: red !important;
     font-weight: bold !important;
 }
 
-@media screen and (max-width: 786px){
-	.desktopNav{
+
+@media screen and (max-width: 786px) {
+    .desktopNav {
         display: none;
     }
 
-    .hamburgerNav{
+    .hamburgerNav {
         display: block;
+        padding: 0 20px;
     }
 
-    .qty label{
+    .qty label {
         display: none;
     }
 
-    .size select{
+    .size select {
         width: 40px;
         font-size: 15px !important;
     }
+
+    header {
+        min-height: 300px;
+        padding: 0;
+        margin: 0;
+    }
+
+    .toolsLinks li {
+        width: calc(100% / 2);
+    }
+
+    .headLogo{
+        left: 35%;
+        transform: translateX(-70%);
+
+    }
+
+
 }
 
-@media screen and (min-width: 786px){
-	.desktopNav{
-        display: flex !important;
+@media screen and (min-width: 786px) {
+    .desktopNav {
+        grid-template-columns: repeat(3, 1fr);
+
+        display: grid !important;
     }
 
-    .desktopNav li{
-        width: calc(100% / 3);
+    .desktopNav li {
         flex-wrap: wrap;
+        width: auto;
+        display: inline-block;
     }
 
-    .hamburgerNav{
+    .hamburgerNav {
         display: none;
     }
 
-    header{
-        min-height: 300px;
+    header {
+        min-height: 250px;
+    }
+
+    .toolsLinks {
+        flex-direction: row;
+    }
+
+    .toolsLinks li {
+        width: calc(100% / 3);
+    }
+
+    .desktopNav li {
+        width: calc(100% / 3);
+    }
+
+    .headLogo {
+        display: none;
     }
 }
 
-@media screen and (min-width: 1024px){
-    header{
-        min-height: 250px;
+@media screen and (min-width: 1024px) {
+
+    .desktopNav {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr);
     }
-    .desktopNav{
-        display: flex !important;
+
+    .desktopNav li {
+        width: auto;
+        display: inline-block;
+    }
+
+    header nav {
+        width: 100%;
+        justify-content: left;
+    }
+
+    header {
+        min-height: 200px;
+
+    }
+
+    .headLogo {
+        display: block;
+        left: 0;
+        transform: translateX(-50%);
+    }
+
+}
+
+
+@media screen and (min-width: 1624px) {
+
+    .desktopNav {
+        grid-template-columns: repeat(6, 1fr);
+
+    }
+
+    .headLogo {
+        display: block;
+        left: 0;
+        transform: translateX(-50%);
     }
 }

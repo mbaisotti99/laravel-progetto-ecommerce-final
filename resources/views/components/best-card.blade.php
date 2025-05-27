@@ -29,12 +29,12 @@
     <div class="d-flex gap-2 w-100 justify-content-center">
       <p class="card-title fs-2 {{ $prod->scontato ? "oldPrice" : "" }}">
         <b>
-          {{ $prod->prezzo }}€
+          {{ number_format($prod->prezzo, 2, ".") }}€
         </b>
       </p>
       @if ($prod->scontato)
         <p class="card-title fs-2 discountedPrice">
-          {{ $prod->prezzo - ($prod->prezzo / 100 * $prod->sconto)  }}€
+          {{ number_format($prod->prezzo - ($prod->prezzo / 100 * $prod->sconto), 2, ".")  }}€
         </p>
       @endif
     </div>

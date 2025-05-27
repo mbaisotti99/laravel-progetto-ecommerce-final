@@ -10,6 +10,9 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end fs-3 ">
                     <li><a class="dropdown-item" href="/">Home</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
                     <li class="dropdown-header fs-4">Categorie</li>
                     @foreach ($cats as $cat)
                         <li><a class="dropdown-item"
@@ -30,13 +33,13 @@
 
 
         <!-- Menu Desktop -->
-        <ul class="navBar cleanList desktopNav row gap-5">
-            <li class="col-4 col-md-2">
+        <ul class="navBar cleanList desktopNav">
+            <li>
                 <a href="/" class="navLink">
                     Home
                 </a>
             </li>
-            <li class="nav-item dropdown col-4 col-md-2">
+            <li class="nav-item dropdown ">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
                     Categorie
@@ -47,18 +50,18 @@
                                 href="{{route("products.filtered", $cat)}}">{{ ucfirst($cat->value) }}</a></li>
                     @endforeach
                 </ul>
-            </li class="col-4 col-md-2">
+            </li>
             <li>
                 <a href="{{ route("products.discounted") }}" class="navLink">
                     Occasioni
                 </a>
             </li>
-            <li class="col-4 col-md-2">
+            <li>
                 <a href="{{route("chiSiamo")}}" class="navLink">
                     Chi siamo
                 </a>
             </li>
-            <li class="col-4 col-md-2">
+            <li>
                 <a href="{{route("contatti")}}" class="navLink">
                     Contatti
                 </a>
