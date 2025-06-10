@@ -39,7 +39,7 @@
                             </p>
                         </div>
                         @else
-                        {{ $prod->prezzo }}
+                        {{ $prod->prezzo }}€
                         @endif
                     </td>
                 </tr>

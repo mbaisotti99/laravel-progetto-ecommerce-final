@@ -6,7 +6,6 @@ use App\Models\Invoice;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Review;
-use Date;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -217,12 +216,6 @@ class UserController extends Controller
 
         $coupons = config("coupons");
         $inputCode = strtoupper(trim($data["coupon"]));
-
-        $order = Auth::user()->order()->with([
-            'products' => function ($q) {
-                $q->withPivot('taglia', 'quantita');
-            }
-        ])->first();
 
         if (array_key_exists($inputCode, $coupons)) {
             Auth::user()->order->coupon = $inputCode;

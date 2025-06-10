@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainControler::class, "home"])->name("home");
 
+Route::get("/esercizio", function (){
+    return view("esercizio");
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

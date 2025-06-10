@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Categorie;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,7 @@ class ApiController extends Controller
                 }
                 return $product;
             })
-            ;
+        ;
 
         if (!$prods) {
             return response()->json([
@@ -150,8 +151,35 @@ class ApiController extends Controller
     {
         $data = $request->all();
 
+        $taglieArr = ["XS", "S", "M", "L", "XL", "XXL"];
+
+
         ["nome" => $nome, "categoria" => $categoria, "prezzoMin" => $prezzoMin, "prezzoMax" => $prezzoMax, "isTagliaFiltered" => $isTagliaFiltered, "taglie" => $taglie] = $data;
 
+        if ($isTagliaFiltered && empty($taglie)) {
+            return response()->json([
+                "success" => false,
+                "message" => "Nessun prodotto trovato",
+            ]);
+        }
+
+        if (
+    //         !in_array($categoria, array_map(
+    //       fn (Categorie $categorie) => $categorie->value,
+    //       Categorie::cases()
+    //    ))
+    //         ||
+            !empty(array_diff($taglie, $taglieArr))
+            ||
+            !is_numeric($prezzoMax)
+            ||
+            !is_numeric($prezzoMin)
+        ) {
+            return response()->json([
+                "success" => false,
+                "message" => "Qualcosa è andato storto!",
+            ]);
+        }
 
         $prods = $isTagliaFiltered ?
 
@@ -161,7 +189,11 @@ class ApiController extends Controller
                 ->whereIn("categoria", $categoria)
                 ->where("prezzo", ">=", $prezzoMin)
                 ->where("prezzo", "<=", $prezzoMax)
-                ->whereJsonContains("taglie", $taglie)
+                ->when(!empty($taglie), function ($query) use ($taglie) {
+                    foreach ($taglie as $taglia) {
+                        $query->whereJsonContains("taglie", $taglia);
+                    }
+                })
                 ->with('reviews')
                 ->get()
                 ->map(function ($product) {
@@ -194,8 +226,8 @@ class ApiController extends Controller
                     return $product;
                 });
 
-        if ($data["discounted"] === true){
-            $prods = $prods->filter(function($prod){
+        if ($data["discounted"] === true) {
+            $prods = $prods->filter(function ($prod) {
                 return $prod->scontato == 1;
             });
         }
